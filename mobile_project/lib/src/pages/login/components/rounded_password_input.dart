@@ -25,7 +25,7 @@ class RoundedPasswordInput extends StatelessWidget {
             obscureText: true,
             decoration: InputDecoration(
                 icon: Icon(Icons.lock, color: kPrimaryColor),
-                hintText: 'Password',
+                hintText: 'Contraseña',
                 hintStyle: TextStyle(
                     color: /* DateTime.now().hour > 18 || DateTime.now().hour < 6
                         ? const Color.fromARGB(255, 185, 185, 185)

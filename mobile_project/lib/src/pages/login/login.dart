@@ -154,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen>
                 },
           child: isLogin
               ? Text(
-                  "Don't have an account? Sign up",
+                  "¿No tiene una cuenta? Registrese",
                   style: TextStyle(color: kPrimaryColor, fontSize: 18),
                 )
               : null,

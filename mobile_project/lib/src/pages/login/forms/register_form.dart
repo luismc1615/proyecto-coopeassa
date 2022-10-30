@@ -72,31 +72,31 @@ class _RegisterFormState extends State<RegisterForm> {
                 children: [
                   const SizedBox(height: 10),
                   const Text(
-                    'Register',
+                    'Registro',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                   ),
                   const SizedBox(height: 40),
-                  Image.asset('assets/images/paws.png'),
+                  Image.asset('assets/images/user+.png'),
                   const SizedBox(height: 40),
                   RoundedInput(
                     icon: Icons.face_rounded,
-                    hint: 'Name',
+                    hint: 'Nombre',
                     seter: setName,
                   ),
                   RoundedInput(
-                      icon: Icons.email, hint: 'Email', seter: setEmail),
+                      icon: Icons.email, hint: 'Correo electrónico', seter: setEmail),
                   RoundedInput(
-                      icon: Icons.phone, hint: 'Phone', seter: setPhone),
+                      icon: Icons.phone, hint: 'Teléfono', seter: setPhone),
                   RoundedInput(
                       icon: Icons.account_circle,
-                      hint: 'Username',
+                      hint: 'Nombre de usuario',
                       seter: setUsername),
                   RoundedPasswordInput(
                     hint: 'Password',
                     seter: setPassword,
                   ),
                   const SizedBox(height: 10),
-                  RoundedButton(title: 'SIGN UP', obj: {
+                  RoundedButton(title: 'Registrarse', obj: {
                     'name': nameInfo,
                     'email': emailInfo,
                     'phone': phoneInfo,

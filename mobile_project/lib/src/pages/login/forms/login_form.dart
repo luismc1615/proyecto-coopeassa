@@ -55,12 +55,12 @@ class _LoginFormState extends State<LoginForm> {
                 const SizedBox(height: 40),
                 RoundedInput(
                     icon: Icons.account_circle,
-                    hint: 'Username',
+                    hint: 'Nombre de usuario',
                     seter: setUsername),
                 RoundedPasswordInput(hint: 'PasswordLogin', seter: setPassword),
                 const SizedBox(height: 10),
                 RoundedButton(
-                    title: 'LOGIN',
+                    title: 'Iniciar sesión',
                     obj: {'username': usernameInfo, 'password': passwordInfo}),
                 const SizedBox(height: 10),
               ],
