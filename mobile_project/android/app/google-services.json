@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1032544414454",
+    "project_id": "homepets-c02ac",
+    "storage_bucket": "homepets-c02ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032544414454:android:debe3ac63e98161cc81ad7",
+        "android_client_info": {
+          "package_name": "com.example.mobile_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032544414454-975k8oqreuo4i0955ahlim39dgflh12s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTZxQbacyXMzSnjRy_ZxnjLq--JdeGY1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032544414454-975k8oqreuo4i0955ahlim39dgflh12s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
