@@ -27,13 +27,13 @@ class RoundedPasswordInput extends StatelessWidget {
                 icon: Icon(Icons.lock, color: kPrimaryColor),
                 hintText: 'Password',
                 hintStyle: TextStyle(
-                    color: DateTime.now().hour > 18 || DateTime.now().hour < 6
+                    color: /* DateTime.now().hour > 18 || DateTime.now().hour < 6
                         ? const Color.fromARGB(255, 185, 185, 185)
-                        : const Color.fromARGB(255, 32, 30, 30)),
+                        : */ Color.fromARGB(255, 129, 126, 126)),
                 border: InputBorder.none),
             style: TextStyle(
-                color: DateTime.now().hour > 18 || DateTime.now().hour < 6
+                color: /* DateTime.now().hour > 18 || DateTime.now().hour < 6
                     ? Colors.white
-                    : Colors.black)));
+                    : */ Colors.black)));
   }
 }

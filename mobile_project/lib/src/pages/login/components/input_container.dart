@@ -19,7 +19,7 @@ class InputContainer extends StatelessWidget {
         width: size.width * 0.8,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: kPrimaryColor/* .withAlpha(DateTime.now().hour > 18 || DateTime.now().hour < 6 ? 130 : 50) */),
+            color: kPrimaryColor.withAlpha(50)),
         child: child);
   }
 }
