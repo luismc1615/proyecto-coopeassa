@@ -58,11 +58,11 @@ class ConectionMongodb {
         print(d);
         return true;
       } else {
-        ToastType.error("Incorrect password");
+        ToastType.error("Contraseña incorrecta");
         return false;
       }
     } else {
-      ToastType.error("User not found");
+      ToastType.error("Usuario no encontrado");
       return false;
     }
   }

@@ -24,7 +24,7 @@ class RoundedButton extends StatelessWidget {
     return InkWell(
       onTap: () async {
         FocusScope.of(context).requestFocus(FocusNode());
-        if (title == "LOGIN") {
+        if (title == "Iniciar sesión") {
           await ConectionMongodb.changeCollection('user');
           if (await ConectionMongodb.login(obj)) {
             SmartDialog.showLoading(
@@ -42,14 +42,14 @@ class RoundedButton extends StatelessWidget {
               obj['phone'].toString().isEmpty ||
               obj['username'].toString().isEmpty ||
               obj['password'].toString().isEmpty) {
-            ToastType.error("There are missing fields of the form to fill");
+            ToastType.error("Faltan campos del formulario por llenar");
           } else {
             if (obj['username'].toString().length < 6) {
-              ToastType.error("Username must contain at least 6 characters");
+              ToastType.error("El nombre de usuario debe contener como mínimo 6 caracteres");
             } else {
               if (Aes.mtdecrypt(obj['password'].toString()).length < 8) {
                 ToastType.error(
-                    "The password must contain at least 8 characters");
+                    "La contraseña debe contener como mínimo 8 caracteres");
               } else {
                 if (await ConectionMongodb.searchUser(obj) == false) {
                   SmartDialog.show(builder: (context) {
@@ -84,7 +84,7 @@ class RoundedButton extends StatelessWidget {
                                     ConectionMongodb.inserData(obj);
                                     SmartDialog.dismiss();
                                     SmartDialog.showToast(
-                                        "User created successfully");
+                                        "Usuario creado con éxito");
                                   },
                                   child: const Text("Accept")),
                               const SizedBox(width: 30),
@@ -95,7 +95,7 @@ class RoundedButton extends StatelessWidget {
                                   onPressed: () {
                                     SmartDialog.dismiss();
                                     SmartDialog.showToast(
-                                        "To create the user must accept the terms and conditions");
+                                        "Para poder crear un usuario debe aceptar los términos y condiciones");
                                   },
                                   child: const Text("Cancel")),
                             ],
@@ -105,7 +105,7 @@ class RoundedButton extends StatelessWidget {
                     );
                   });
                 } else {
-                  ToastType.error("Username already exist");
+                  ToastType.error("El nombre de usuario ya existe");
                 }
               }
             }
