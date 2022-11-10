@@ -67,6 +67,14 @@ class ConectionMongodb {
     }
   }
 
+  static Future<List<Map<String, dynamic>>?> getPlaces() async {
+    await ConectionMongodb.changeCollection('tbl_places');
+    final places = await _userCollection?.find().toList();
+    return places;
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+
   static Future<List<Map<String, dynamic>>?> getPets(String? userId) async {
     await ConectionMongodb.changeCollection('pets');
     final d = await _userCollection?.find({'user_id': userId}).toList();
