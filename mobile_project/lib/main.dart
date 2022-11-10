@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => LoginScreen(),
         '/PlacesInfoForm': (context) => const PlacesInfoForm(),
         '/UsersInfoForm': (context) => const UsersInfoForm(),
+        ////////////////////////////////////////////////////////
         '/informationPets': (context) => const InformationPets(),
         '/walkPets': (context) => const PetsTravel(),
         '/PetCuriosities': (context) => const PetCuriosities(),

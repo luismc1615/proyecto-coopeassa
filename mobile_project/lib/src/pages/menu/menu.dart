@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_project/src/pages/admin/pages/places_gallery.dart';
 import 'package:mobile_project/src/pages/forms/about.dart';
 import 'package:mobile_project/src/pages/login/login.dart';
 import 'package:mobile_project/src/pages/principal_pages/curiosities_pets.dart';
@@ -24,8 +25,9 @@ class _MenuScreenState extends State<MenuScreen> {
   final List<Widget> _pages = [
     //InfoPets(),
     PlacesInfo(),
+    PlacesGallery(),
     UsersInfo(),
-    CuriositiesPets(),
+    //CuriositiesPets(),
     SelectRelationshipsPet(),
     const About()
   ];
