@@ -145,12 +145,12 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
     return WillPopScope(
         onWillPop: () async {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MenuScreen(2)));
+              context, MaterialPageRoute(builder: (context) => MenuScreen(1)));
           return true;
         },
         child: Scaffold(
           appBar: AppBar(
-              centerTitle: true, title: const Text("Registro de usuario")),
+              centerTitle: true, title: const Text("Registro de perfil")),
           body: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
@@ -158,7 +158,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                 children: <Widget>[
                   const Align(
                     alignment: Alignment.center,
-                    child: Text("Ingrese la información del usuario",
+                    child: Text("Ingrese la información del perfil",
                         style: TextStyle(
                           fontSize: 20,
                         )),
@@ -171,99 +171,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        // urlPath == '' && itemUsers['profile_img'] != ''
-                        //     ? CircleAvatar(
-                        //         radius: 120,
-                        //         backgroundImage:
-                        //             NetworkImage(itemUsers['profile_img']),
-                        //       )
-                        //     : (urlPath == ''
-                        //         ? const Center()
-                        //         : CircleAvatar(
-                        //             radius: 120,
-                        //             backgroundImage: NetworkImage(urlPath),
-                        //           )),
-                        // const SizedBox(
-                        //   height: 20,
-                        // ),
-                        // ElevatedButton(
-                        //     style: TextButton.styleFrom(
-                        //         backgroundColor:
-                        //             const Color.fromRGBO(25, 150, 125, 1)),
-                        //     onPressed: () {
-                        //       SmartDialog.show(builder: (context) {
-                        //         return Container(
-                        //           height: 107,
-                        //           width: 200,
-                        //           decoration: BoxDecoration(
-                        //             color: Colors.black,
-                        //             borderRadius: BorderRadius.circular(10),
-                        //           ),
-                        //           alignment: Alignment.center,
-                        //           child: Column(children: <Widget>[
-                        //             Padding(
-                        //               padding: const EdgeInsets.all(5),
-                        //               child: Column(
-                        //                 mainAxisAlignment:
-                        //                     MainAxisAlignment.center,
-                        //                 children: <Widget>[
-                        //                   ElevatedButton(
-                        //                     style: TextButton.styleFrom(
-                        //                         backgroundColor:
-                        //                             const Color.fromRGBO(
-                        //                                 25, 150, 125, 1)),
-                        //                     onPressed: () {
-                        //                       //  openGalery();
-                        //                       SmartDialog.dismiss();
-                        //                     },
-                        //                     child: Row(
-                        //                       mainAxisSize: MainAxisSize.min,
-                        //                       children: const [
-                        //                         Text('Seleccionar imagen'),
-                        //                         SizedBox(
-                        //                           height: 5,
-                        //                         ),
-                        //                         Icon(
-                        //                           Icons.image,
-                        //                           size: 24.0,
-                        //                         ),
-                        //                       ],
-                        //                     ),
-                        //                   ),
-                        //                   const SizedBox(width: 10),
-                        //                   ElevatedButton(
-                        //                     style: TextButton.styleFrom(
-                        //                         backgroundColor:
-                        //                             const Color.fromRGBO(
-                        //                                 25, 150, 125, 1)),
-                        //                     onPressed: () {
-                        //                       //  openCamera();
-                        //                       SmartDialog.dismiss();
-                        //                     },
-                        //                     child: Row(
-                        //                       mainAxisSize: MainAxisSize.min,
-                        //                       children: const [
-                        //                         Text('Tomar foto'),
-                        //                         SizedBox(
-                        //                           width: 5,
-                        //                         ),
-                        //                         Icon(
-                        //                           Icons.camera,
-                        //                           size: 24.0,
-                        //                         ),
-                        //                       ],
-                        //                     ),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //             ),
-                        //           ]),
-                        //         );
-                        //       });
-                        //     },
-                        //     child: Text(itemUsers['profile_img'] != ''
-                        //         ? 'Editar imagen de perfil'
-                        //         : 'Añadir imagen de perfil')),
                         const SizedBox(
                           height: 20,
                         ),
@@ -294,10 +201,10 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                             if (value == null ||
                                 value.isEmpty ||
                                 value.length < 3) {
-                              return 'Name must contain at least 3 characters';
+                              return 'El nombre debe contener al menos 3 caracteres';
                             } else if (value
                                 .contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
-                              return 'El nombre debe contener al menos 3 caracteres';
+                              return 'El nombre no puede contener caracteres especiales';
                             }
                           },
                         ),
@@ -321,7 +228,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                             if (value == null ||
                                 value.isEmpty ||
                                 value.length < 3) {
-                              return 'El nombre debe contener al menos 3 caracteres';
+                              return 'La nacionalidad debe contener al menos 3 caracteres';
                             } else if (value
                                 .contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
                               return 'La nacionalidad no puede contener caracteres especiales';
@@ -356,7 +263,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                             if (value == null ||
                                 value.isEmpty ||
                                 value.length < 3) {
-                              return 'El nombre debe contener al menos 3 caracteres';
+                              return 'El teléfono debe contener al menos 3 caracteres';
                             } else if (value
                                 .contains(RegExp(r'^[a-zA-Z_\-=@,\.;]+$'))) {
                               return 'El telefono ingresado no es válido';
@@ -427,10 +334,10 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                             if (value == null ||
                                 value.isEmpty ||
                                 value.length < 3) {
-                              return 'Color must contain at least 3 characters';
+                              return 'La dirección debe contener al menos 3 caracteres';
                             } else if (value
                                 .contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
-                              return 'Color cannot contain special characters';
+                              return 'La dirección no puede contener caracteres especiales';
                             }
                           },
                           onFieldSubmitted: (value) {
@@ -462,7 +369,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                 });
                                 await PushNotificationsManager
                                     .sendNotification2(
-                                  "Nuevo usuario registrado",
+                                  "Nuevo perfil registrado",
                                   name,
                                 );
                                 _submit();

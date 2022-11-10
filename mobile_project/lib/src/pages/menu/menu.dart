@@ -1,6 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_project/src/pages/admin/pages/places_gallery.dart';
 import 'package:mobile_project/src/pages/forms/about.dart';
 import 'package:mobile_project/src/pages/login/login.dart';
 import 'package:mobile_project/src/pages/principal_pages/curiosities_pets.dart';
@@ -25,20 +24,22 @@ class _MenuScreenState extends State<MenuScreen> {
   final List<Widget> _pages = [
     //InfoPets(),
     PlacesInfo(),
-    PlacesGallery(),
     UsersInfo(),
-    //CuriositiesPets(),
+    CuriositiesPets(),
     SelectRelationshipsPet(),
     const About()
   ];
 
   final items = <Widget>[
-    Image.asset('assets/images/dog_2.png',
-        color: Colors.white, height: 28, width: 28),
     const Icon(
-      Icons.flight_takeoff,
+      Icons.landscape,
       color: Colors.white,
-      semanticLabel: "Travels",
+      semanticLabel: "Sitios",
+    ),
+    const Icon(
+      Icons.account_circle,
+      color: Colors.white,
+      semanticLabel: "Perfiles",
     ),
     Image.asset('assets/images/curiosity.png',
         color: Colors.white, height: 24, width: 24),

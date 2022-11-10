@@ -29,7 +29,7 @@ class _UsersInfoState extends State<UsersInfo> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text("Información de sitios"),
+          title: const Text("Información de perfiles"),
           backgroundColor: const Color.fromRGBO(25, 150, 125, 1),
         ),
         body: SingleChildScrollView(
@@ -52,7 +52,7 @@ class _UsersInfoState extends State<UsersInfo> {
                             'address': '',
                           });
                     },
-                    child: const Text("Añadir nuevo usuario")),
+                    child: const Text("Añadir nuevo perfil")),
                 itemsUsers == []
                     ? const Center()
                     : ListView.builder(

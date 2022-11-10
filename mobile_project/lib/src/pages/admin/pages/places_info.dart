@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/models/placesDTO.dart';
+import 'package:mobile_project/src/pages/admin/forms/places_gallery_form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlacesInfo extends StatefulWidget {
@@ -27,7 +28,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text("Información de sitios"),
           backgroundColor: const Color.fromRGBO(25, 150, 125, 1),
@@ -40,8 +41,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                 ElevatedButton(
                     style: TextButton.styleFrom(
                         backgroundColor: const Color.fromRGBO(25, 150, 125, 1),
-                        minimumSize: const Size.fromHeight(40)
-                        ),
+                        minimumSize: const Size.fromHeight(40)),
                     onPressed: () {
                       Navigator.pushNamed(context, "/PlacesInfoForm",
                           arguments: {
@@ -69,12 +69,13 @@ class _PlacesInfoState extends State<PlacesInfo> {
                               child: Column(
                                 children: <Widget>[
                                   const SizedBox(height: 8),
-                                  itemsPlaces[i].profile_img! != '' ?
-                                  CircleAvatar(
-                                    radius: 120,
-                                    backgroundImage: NetworkImage(
-                                        itemsPlaces[i].profile_img!),
-                                  ) : const Center(),
+                                  itemsPlaces[i].profile_img! != ''
+                                      ? CircleAvatar(
+                                          radius: 120,
+                                          backgroundImage: NetworkImage(
+                                              itemsPlaces[i].profile_img!),
+                                        )
+                                      : const Center(),
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(itemsPlaces[i].name!,
@@ -84,19 +85,23 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                           foreground: Paint()
                                             ..style = PaintingStyle.stroke
                                             ..strokeWidth = 2
-                                            ..color = Color.fromARGB(255, 0, 0, 0),
+                                            ..color =
+                                                Color.fromARGB(255, 0, 0, 0),
                                         )),
                                   ),
                                   Container(
                                     padding: const EdgeInsets.all(5),
-                                    child: Text("Descripción: " + itemsPlaces[i].description!,
+                                    child: Text(
+                                        "Descripción: " +
+                                            itemsPlaces[i].description!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
                                   ),
                                   Container(
                                     padding: const EdgeInsets.all(5),
-                                    child: Text("Dirección: " + itemsPlaces[i].address!,
+                                    child: Text(
+                                        "Dirección: " + itemsPlaces[i].address!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -109,19 +114,50 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         ElevatedButton(
+                                            onPressed: () async {
+                                              SharedPreferences _placeId =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              _placeId.setString(
+                                                  'placeId',
+                                                  itemsPlaces[i]
+                                                      .placeId
+                                                      .toString());
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PlacesGalleryForm(
+                                                              itemsPlaces[i]
+                                                                  .name)));
+                                            },
+                                            child: const Icon(Icons.image,
+                                                color: Colors.white),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: const Color.fromARGB(
+                                                  255, 8, 68, 16),
+                                              shape: const CircleBorder(),
+                                            )),
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 10),
+                                        ),
+                                        ElevatedButton(
                                             onPressed: () {
                                               Navigator.pushNamed(
                                                   context, "/PlacesInfoForm",
                                                   arguments: {
-                                                    'placeId': itemsPlaces[i].placeId,
+                                                    'placeId':
+                                                        itemsPlaces[i].placeId,
                                                     'address':
+                                                        itemsPlaces[i].address!,
+                                                    'description':
                                                         itemsPlaces[i]
-                                                            .address!,
-                                                    'description': itemsPlaces[i].description!,
+                                                            .description!,
                                                     'name':
                                                         itemsPlaces[i].name!,
                                                     'profile_img':
-                                                        itemsPlaces[i].profile_img!
+                                                        itemsPlaces[i]
+                                                            .profile_img!
                                                   });
                                             },
                                             child: const Icon(
@@ -139,7 +175,8 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                         ElevatedButton(
                                             onPressed: () async {
                                               await ConectionMongodb
-                                                  .changeCollection('tbl_places');
+                                                  .changeCollection(
+                                                      'tbl_places');
                                               await ConectionMongodb.delete(
                                                   itemsPlaces[i].placeId);
                                               _onLoading();
@@ -169,12 +206,8 @@ class _PlacesInfoState extends State<PlacesInfo> {
     itemsPlaces = [];
     List<Map<String, dynamic>> myPlaces = await loadPreferences();
     myPlaces.forEach((element) {
-      itemsPlaces.add(PlacesDTO(
-          element['_id'],
-          element['address'],
-          element['description'],
-          element['profile_img'],
-          element['name']));
+      itemsPlaces.add(PlacesDTO(element['_id'], element['address'],
+          element['description'], element['profile_img'], element['name']));
     });
     if (mounted) setState(() {});
   }
