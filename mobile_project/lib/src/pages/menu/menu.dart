@@ -9,6 +9,7 @@ import 'package:mobile_project/src/pages/principal_pages/travel_pets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../admin/pages/places_info.dart';
+import '../admin/pages/users_info.dart';
 
 class MenuScreen extends StatefulWidget {
   static const String ROUTE = "/menu";
@@ -23,7 +24,7 @@ class _MenuScreenState extends State<MenuScreen> {
   final List<Widget> _pages = [
     //InfoPets(),
     PlacesInfo(),
-    TravelPets(),
+    UsersInfo(),
     CuriositiesPets(),
     SelectRelationshipsPet(),
     const About()
