@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
 import 'package:mobile_project/src/pages/menu/admin_menu.dart';
+import 'package:mobile_project/src/utils/Toast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -265,8 +266,9 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          initialValue:
-                              itemPlaces['name'] != '' ? itemPlaces['name'] : '',
+                          initialValue: itemPlaces['name'] != ''
+                              ? itemPlaces['name']
+                              : '',
                           decoration: const InputDecoration(
                               labelText: 'Nombre',
                               enabledBorder: OutlineInputBorder(
@@ -276,6 +278,7 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
+                          keyboardType: TextInputType.name,
                           onFieldSubmitted: (value) {
                             setState(() {
                               name = value.capitalize();
@@ -299,8 +302,9 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          initialValue:
-                              itemPlaces['description'] != '' ? itemPlaces['description'] : '',
+                          initialValue: itemPlaces['description'] != ''
+                              ? itemPlaces['description']
+                              : '',
                           decoration: const InputDecoration(
                               labelText: 'Descripción',
                               enabledBorder: OutlineInputBorder(
@@ -314,7 +318,7 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                             if (value == null ||
                                 value.isEmpty ||
                                 value.length < 3) {
-                              return 'El nombre debe contener al menos 3 caracteres';
+                              return 'El descripción debe contener al menos 3 caracteres';
                             } else if (value
                                 .contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
                               return 'La descripción no puede contener caracteres especiales';
@@ -333,8 +337,9 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          initialValue:
-                              itemPlaces['address'] != '' ? itemPlaces['address'] : '',
+                          initialValue: itemPlaces['address'] != ''
+                              ? itemPlaces['address']
+                              : '',
                           decoration: const InputDecoration(
                               labelText: 'Dirección',
                               enabledBorder: OutlineInputBorder(
@@ -344,7 +349,6 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
-                          keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -372,23 +376,30 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                               minimumSize: const Size.fromHeight(60)),
                           onPressed: () async {
                             if (itemPlaces['placeId'] == '') {
-                              if (_formKey.currentState!.validate()) {
-                                await ConectionMongodb.changeCollection("tbl_places");
-                                await ConectionMongodb.insert({
-                                  'address': address,
-                                  'description': description,
-                                  'name': name,
-                                  'profile_img': urlPath,
-                                });
-                                await PushNotificationsManager
-                                    .sendNotification2(
-                                  "Nuevo sitio registrado",
-                                  name,
-                                );
-                                _submit();
-                                setState(() {
-                                  urlPath = '';
-                                });
+                              if (await ConectionMongodb.placeExist(name) ==
+                                  false) {
+                                if (_formKey.currentState!.validate()) {
+                                  await ConectionMongodb.changeCollection(
+                                      "tbl_places");
+                                  await ConectionMongodb.insert({
+                                    'address': address,
+                                    'description': description,
+                                    'name': name,
+                                    'profile_img': urlPath,
+                                  });
+                                  await PushNotificationsManager
+                                      .sendNotification2(
+                                    "Nuevo sitio registrado",
+                                    name,
+                                  );
+                                  _submit();
+                                  setState(() {
+                                    urlPath = '';
+                                  });
+                                }
+                              } else {
+                                ToastType.error(
+                                    "Ya existe un sitio con este nombre");
                               }
                             } else {
                               if (_formKey.currentState!.validate()) {
@@ -404,23 +415,48 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                 if (urlPath == '') {
                                   urlPath = itemPlaces['profile_img'];
                                 }
-                                await ConectionMongodb.changeCollection('tbl_places');
-                                await ConectionMongodb.update({
-                                  "_id": itemPlaces['placeId']
-                                }, {
-                                  '_id': itemPlaces['placeId'],
-                                  'address': address,
-                                  'description': description,
-                                  'name': name,
-                                  'profile_img': urlPath,
-                                });
-                                SmartDialog.showToast(
-                                    "Información editada con éxito");
+
+                                if (name == itemPlaces['name']) {
+                                  await ConectionMongodb.changeCollection(
+                                      'tbl_places');
+                                  await ConectionMongodb.update({
+                                    "_id": itemPlaces['placeId']
+                                  }, {
+                                    '_id': itemPlaces['placeId'],
+                                    'address': address,
+                                    'description': description,
+                                    'name': name,
+                                    'profile_img': urlPath,
+                                  });
+                                  SmartDialog.showToast(
+                                      "Información editada con éxito");
+                                } else {
+                                  if (await ConectionMongodb.placeExist(name) ==
+                                      false) {
+                                    await ConectionMongodb.changeCollection(
+                                        'tbl_places');
+                                    await ConectionMongodb.update({
+                                      "_id": itemPlaces['placeId']
+                                    }, {
+                                      '_id': itemPlaces['placeId'],
+                                      'address': address,
+                                      'description': description,
+                                      'name': name,
+                                      'profile_img': urlPath,
+                                    });
+                                    SmartDialog.showToast(
+                                        "Información editada con éxito");
+                                  } else {
+                                    ToastType.error(
+                                        "Ya existe un sitio con este nombre");
+                                  }
+                                }
                               }
                             }
                           },
-                          child:
-                              Text(itemPlaces['placeId'] != '' ? 'Editar' : 'Guardar'),
+                          child: Text(itemPlaces['placeId'] != ''
+                              ? 'Editar'
+                              : 'Guardar'),
                         ),
                       ],
                     ),

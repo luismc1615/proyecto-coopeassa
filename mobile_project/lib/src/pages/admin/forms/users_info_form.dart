@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
 import 'package:mobile_project/src/pages/menu/admin_menu.dart';
+import 'package:mobile_project/src/utils/Toast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -365,22 +366,28 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                 itemUsers['phone'] == '' &&
                                 itemUsers['email'] == '' &&
                                 itemUsers['address'] == '') {
-                              if (_formKey.currentState!.validate()) {
-                                await ConectionMongodb.changeCollection(
-                                    "tbl_profiles");
-                                await ConectionMongodb.insert({
-                                  'name': name,
-                                  'nacionality': nacionality,
-                                  'phone': phone,
-                                  'email': email,
-                                  'address': address,
-                                });
-                                await PushNotificationsManager
-                                    .sendNotification2(
-                                  "Nuevo perfil registrado",
-                                  name,
-                                );
-                                _submit();
+                              if (await ConectionMongodb.profileExist(name) ==
+                                  false) {
+                                if (_formKey.currentState!.validate()) {
+                                  await ConectionMongodb.changeCollection(
+                                      "tbl_profiles");
+                                  await ConectionMongodb.insert({
+                                    'name': name,
+                                    'nacionality': nacionality,
+                                    'phone': phone,
+                                    'email': email,
+                                    'address': address,
+                                  });
+                                  await PushNotificationsManager
+                                      .sendNotification2(
+                                    "Nuevo perfil registrado",
+                                    name,
+                                  );
+                                  _submit();
+                                }
+                              } else {
+                                ToastType.error(
+                                    "Ya existe un perfil con este nombre");
                               }
                             } else if (itemUsers['userId'] != '' &&
                                 itemUsers['name'] != '' &&
@@ -404,20 +411,44 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                 if (address == '') {
                                   address = itemUsers['address'];
                                 }
-                                await ConectionMongodb.changeCollection(
-                                    'tbl_profiles');
-                                await ConectionMongodb.update({
-                                  "_id": itemUsers['userId']
-                                }, {
-                                  '_id': itemUsers['userId'],
-                                  'name': name,
-                                  'nacionality': nacionality,
-                                  'phone': phone,
-                                  'email': email,
-                                  'address': address,
-                                });
-                                SmartDialog.showToast(
-                                    "Información editada con éxito");
+                                if (name == itemUsers['name']) {
+                                  await ConectionMongodb.changeCollection(
+                                      'tbl_profiles');
+                                  await ConectionMongodb.update({
+                                    "_id": itemUsers['userId']
+                                  }, {
+                                    '_id': itemUsers['userId'],
+                                    'name': name,
+                                    'nacionality': nacionality,
+                                    'phone': phone,
+                                    'email': email,
+                                    'address': address,
+                                  });
+                                  SmartDialog.showToast(
+                                      "Información editada con éxito");
+                                } else {
+                                  if (await ConectionMongodb.profileExist(
+                                          name) ==
+                                      false) {
+                                    await ConectionMongodb.changeCollection(
+                                        'tbl_profiles');
+                                    await ConectionMongodb.update({
+                                      "_id": itemUsers['userId']
+                                    }, {
+                                      '_id': itemUsers['userId'],
+                                      'name': name,
+                                      'nacionality': nacionality,
+                                      'phone': phone,
+                                      'email': email,
+                                      'address': address,
+                                    });
+                                    SmartDialog.showToast(
+                                        "Información editada con éxito");
+                                  } else {
+                                    ToastType.error(
+                                        "Ya existe un perfil con este nombre");
+                                  }
+                                }
                               }
                             } else if (itemUsers['userId'] == '' &&
                                 itemUsers['name'] != '' &&
@@ -441,25 +472,31 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                 if (address == '') {
                                   address = itemUsers['address'];
                                 }
-                                await ConectionMongodb.changeCollection(
-                                    "tbl_profiles");
-                                await ConectionMongodb.insert({
-                                  'name': name,
-                                  'nacionality': nacionality,
-                                  'phone': phone,
-                                  'email': email,
-                                  'address': address,
-                                });
-                                await PushNotificationsManager
-                                    .sendNotification2(
-                                  "Nuevo perfil registrado",
-                                  name,
-                                );
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MenuScreen(1)));
-                                _submit();
+                                if (await ConectionMongodb.profileExist(name) ==
+                                    false) {
+                                  await ConectionMongodb.changeCollection(
+                                      "tbl_profiles");
+                                  await ConectionMongodb.insert({
+                                    'name': name,
+                                    'nacionality': nacionality,
+                                    'phone': phone,
+                                    'email': email,
+                                    'address': address,
+                                  });
+                                  await PushNotificationsManager
+                                      .sendNotification2(
+                                    "Nuevo perfil registrado",
+                                    name,
+                                  );
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MenuScreen(1)));
+                                  _submit();
+                                } else {
+                                  ToastType.error(
+                                      "Ya existe un perfil con este nombre");
+                                }
                               }
                             }
                           },

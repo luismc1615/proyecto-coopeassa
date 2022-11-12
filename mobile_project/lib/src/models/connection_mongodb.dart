@@ -49,9 +49,19 @@ class ConectionMongodb {
     }
   }
 
-  static Future<bool> placeExist(Map<String, Object> data) async {
-    await ConectionMongodb.changeCollection('user');
-    var d = await _userCollection?.findOne({'username': data['username']});
+  static Future<bool> placeExist(String? name) async {
+    await ConectionMongodb.changeCollection('tbl_places');
+    var d = await _userCollection?.findOne({'name': name});
+    if (d != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> profileExist(String? name) async {
+    await ConectionMongodb.changeCollection('tbl_profiles');
+    var d = await _userCollection?.findOne({'name': name});
     if (d != null) {
       return true;
     } else {
