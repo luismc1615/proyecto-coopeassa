@@ -28,6 +28,6 @@ class ReservationsDTO {
   @override
   String? userId;
 
-  ReservationsDTO(this.reservationId, this.personQuantiti, this.checkInTime,
+  ReservationsDTO(this.reservationId, this.placeId, this.personQuantiti, this.checkInTime,
       this.checkOutTime, this.phone, this.email, this.address, this.userId);
 }

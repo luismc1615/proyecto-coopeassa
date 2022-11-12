@@ -72,12 +72,6 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                               child: Column(
                                 children: <Widget>[
                                   const SizedBox(height: 8),
-                                  // itemsReservations[i].profile_img! != '' ?
-                                  // CircleAvatar(
-                                  //   radius: 120,
-                                  //   backgroundImage: NetworkImage(
-                                  //       itemsReservations[i].profile_img!),
-                                  // ) : const Center(),
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(itemsReservations[i].placeId!,
@@ -88,13 +82,31 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                             ..style = PaintingStyle.stroke
                                             ..strokeWidth = 2
                                             ..color =
-                                                Color.fromARGB(255, 0, 0, 0),
+                                                const Color.fromARGB(255, 0, 0, 0),
                                         )),
                                   ),
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "Nacionalidad: " +
+                                        "Sitio: " +
+                                            itemsReservations[i].placeId!,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                        "A nombre de: " +
+                                            itemsReservations[i].userId!,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                        "Cantidad: " +
                                             itemsReservations[i]
                                                 .personQuantiti!
                                                 .toString(),
@@ -147,15 +159,6 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                     child: Text(
                                         "Dirección: " +
                                             itemsReservations[i].address!,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Text(
-                                        "Nombre de usuario: " +
-                                            itemsReservations[i].userId!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -256,7 +259,8 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
           element['checkOutTime'],
           element['phone'],
           element['email'],
-          element['address']));
+          element['address'],
+          element['userId']));
     });
     if (mounted) setState(() {});
   }
