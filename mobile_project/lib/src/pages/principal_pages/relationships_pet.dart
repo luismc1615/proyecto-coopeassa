@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/models/relationshipsDTO.dart';
-import 'package:mobile_project/src/pages/menu/menu.dart';
+import 'package:mobile_project/src/pages/menu/admin_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RelationshipsPet extends StatefulWidget {

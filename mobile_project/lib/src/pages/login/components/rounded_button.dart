@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_project/src/utils/colors.dart';
 import 'package:mobile_project/src/utils/Toast.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
-import 'package:mobile_project/src/pages/menu/menu.dart';
+import 'package:mobile_project/src/pages/menu/admin_menu.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:mobile_project/src/utils/aes.dart';
 import 'package:mobile_project/src/utils/terms.dart';

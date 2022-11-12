@@ -3,7 +3,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
-import 'package:mobile_project/src/pages/menu/menu.dart';
+import 'package:mobile_project/src/pages/menu/admin_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
