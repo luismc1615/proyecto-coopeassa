@@ -406,7 +406,7 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                               if (_formKey.currentState!.validate()) {
                                 await ConectionMongodb.changeCollection(
                                     "tbl_reservations");
-                                await ConectionMongodb.inserData({
+                                await ConectionMongodb.insert({
                                   'placeId': placeId,
                                   'personQuantiti': personQuantiti,
                                   'phone': phone,

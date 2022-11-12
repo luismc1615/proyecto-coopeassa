@@ -451,7 +451,7 @@ class _InformationPetsState extends State<InformationPets> {
                             if (itemPets['petId'] == '') {
                               if (_formKey.currentState!.validate()) {
                                 await ConectionMongodb.changeCollection("pets");
-                                await ConectionMongodb.inserData({
+                                await ConectionMongodb.insert({
                                   'name': name,
                                   'breed': breed,
                                   'color': color,

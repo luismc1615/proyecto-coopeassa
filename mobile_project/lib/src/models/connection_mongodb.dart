@@ -27,7 +27,7 @@ class ConectionMongodb {
     _db!.close();
   }
 
-  static inserData(Map<String, Object> data) {
+  static insert(Map<String, Object> data) {
     _userCollection!.insert(data);
   }
 
@@ -90,6 +90,12 @@ class ConectionMongodb {
     await ConectionMongodb.changeCollection('tbl_reservations');
     final reservations = await _userCollection?.find().toList();
     return reservations;
+  }
+
+  static Future<List<Map<String, dynamic>>?> getMessages() async {
+    await ConectionMongodb.changeCollection('tbl_messages');
+    final users = await _userCollection?.find().toList();
+    return users;
   }
 
   ///////////////////////////////////////////////////////////////////////////

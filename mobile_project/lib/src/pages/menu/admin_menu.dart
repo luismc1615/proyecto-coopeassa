@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_project/src/pages/admin/messages_info.dart';
 import 'package:mobile_project/src/pages/admin/reservations_info.dart';
 import 'package:mobile_project/src/pages/forms/about.dart';
 import 'package:mobile_project/src/pages/login/login.dart';
@@ -27,7 +28,7 @@ class _MenuScreenState extends State<MenuScreen> {
     PlacesInfo(),
     UsersInfo(),
     ReservationsInfo(),
-    SelectRelationshipsPet(),
+    Messages(),
     const About()
   ];
 

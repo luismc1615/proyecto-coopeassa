@@ -363,7 +363,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                               if (_formKey.currentState!.validate()) {
                                 await ConectionMongodb.changeCollection(
                                     "tbl_profiles");
-                                await ConectionMongodb.inserData({
+                                await ConectionMongodb.insert({
                                   'name': name,
                                   'nacionality': nacionality,
                                   'phone': phone,
@@ -394,9 +394,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                 if (address == '') {
                                   address = itemUsers['address'];
                                 }
-                                // if (urlPath == '') {
-                                //   urlPath = itemUsers['profile_img'];
-                                // }
                                 await ConectionMongodb.changeCollection(
                                     'tbl_profiles');
                                 await ConectionMongodb.update({

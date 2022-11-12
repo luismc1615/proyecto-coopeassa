@@ -374,7 +374,7 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                             if (itemPlaces['placeId'] == '') {
                               if (_formKey.currentState!.validate()) {
                                 await ConectionMongodb.changeCollection("tbl_places");
-                                await ConectionMongodb.inserData({
+                                await ConectionMongodb.insert({
                                   'address': address,
                                   'description': description,
                                   'name': name,

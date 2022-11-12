@@ -81,7 +81,7 @@ class RoundedButton extends StatelessWidget {
                                   onPressed: () async {
                                     await ConectionMongodb.changeCollection(
                                         'user');
-                                    ConectionMongodb.inserData(obj);
+                                    ConectionMongodb.insert(obj);
                                     SmartDialog.dismiss();
                                     SmartDialog.showToast(
                                         "Usuario creado con éxito");

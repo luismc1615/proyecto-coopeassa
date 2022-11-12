@@ -204,7 +204,7 @@ class _PlacesGalleryFormState extends State<PlacesGalleryForm> {
           urlPath = await snapshot.ref.getDownloadURL();
           SharedPreferences _placeId = await SharedPreferences.getInstance();
           await ConectionMongodb.changeCollection("tbl_images_places");
-          await ConectionMongodb.inserData({
+          await ConectionMongodb.insert({
             'img': urlPath,
             'placeId': _placeId.getString('placeId').toString(),
           });
@@ -233,7 +233,7 @@ class _PlacesGalleryFormState extends State<PlacesGalleryForm> {
           urlPath = await snapshot.ref.getDownloadURL();
           SharedPreferences _placeId = await SharedPreferences.getInstance();
           await ConectionMongodb.changeCollection("tbl_images_places");
-          await ConectionMongodb.inserData({
+          await ConectionMongodb.insert({
             'img': urlPath,
             'placeId': _placeId.getString('placeId').toString(),
           });

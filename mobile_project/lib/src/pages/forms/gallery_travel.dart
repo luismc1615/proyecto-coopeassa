@@ -206,7 +206,7 @@ class _GalleryTravelState extends State<GalleryTravel> {
           urlPath = await snapshot.ref.getDownloadURL();
           SharedPreferences _travelId = await SharedPreferences.getInstance();
           await ConectionMongodb.changeCollection("photostravel");
-          await ConectionMongodb.inserData({
+          await ConectionMongodb.insert({
             'photo': urlPath,
             'travel_id': _travelId.getString('travelId').toString(),
           });

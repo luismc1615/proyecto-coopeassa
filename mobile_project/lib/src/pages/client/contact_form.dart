@@ -381,7 +381,7 @@ class _ContactFormState extends State<ContactForm> {
                             if (_formKey.currentState!.validate()) {
                               await ConectionMongodb.changeCollection(
                                   "tbl_messages");
-                              await ConectionMongodb.inserData({
+                              await ConectionMongodb.insert({
                                 'name': name,
                                 'nacionality': nacionality,
                                 'phone': phone,

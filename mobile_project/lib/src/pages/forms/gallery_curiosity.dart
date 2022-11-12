@@ -205,7 +205,7 @@ class _GalleryCuriositylState extends State<GalleryCuriosity> {
           SharedPreferences _curiosityId =
               await SharedPreferences.getInstance();
           await ConectionMongodb.changeCollection("photoscuriosity");
-          await ConectionMongodb.inserData({
+          await ConectionMongodb.insert({
             'photo': urlPath,
             'curiosity_id': _curiosityId.getString('curiosityId').toString(),
           });

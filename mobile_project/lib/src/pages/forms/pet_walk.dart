@@ -473,7 +473,7 @@ class _PetsTravelState extends State<PetsTravel> {
                           SmartDialog.showToast("Add participating pets");
                         } else {
                           await ConectionMongodb.changeCollection("petwalk");
-                          await ConectionMongodb.inserData({
+                          await ConectionMongodb.insert({
                             'date': intl.DateFormat.yMd().format(date),
                             'place': place,
                             'start_time':

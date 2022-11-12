@@ -413,7 +413,7 @@ class _PetCuriositiesState extends State<PetCuriosities> {
                             } else {
                               await ConectionMongodb.changeCollection(
                                   "curiositiespet");
-                              await ConectionMongodb.inserData({
+                              await ConectionMongodb.insert({
                                 'title': title,
                                 'description': description,
                                 'date': intl.DateFormat.yMd().format(date),

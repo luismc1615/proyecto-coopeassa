@@ -452,7 +452,7 @@ class _RelationshipsPetFormState extends State<RelationshipsPetForm> {
                               if (_formKey.currentState!.validate()) {
                                 await ConectionMongodb.changeCollection(
                                     "relationshipspets");
-                                await ConectionMongodb.inserData({
+                                await ConectionMongodb.insert({
                                   'name': name,
                                   'breed': breed,
                                   'color': color,
