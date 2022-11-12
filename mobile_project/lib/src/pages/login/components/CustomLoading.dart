@@ -40,7 +40,7 @@ class _CustomLoadingState extends State<CustomLoading>
   Widget _buildLoadingTwo() {
     return Stack(alignment: Alignment.center, children: [
       Image.asset(
-        'assets/images/paws.png',
+        'assets/images/logo-coopeassa-rl.png',
         height: 80,
         width: 80,
       ),

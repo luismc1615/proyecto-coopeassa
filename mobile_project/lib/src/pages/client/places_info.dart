@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/models/placesDTO.dart';
-import 'package:mobile_project/src/pages/admin/forms/places_gallery_form.dart';
-import 'package:mobile_project/src/pages/menu/client_menu.dart';
+import 'package:mobile_project/src/pages/client/gallery_place.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlacesInfo extends StatefulWidget {
@@ -28,13 +27,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
 
   @override
   Widget build(BuildContext context) {
-   return WillPopScope(
-        onWillPop: () async {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MenuScreen(2)));
-          return true;
-        },
-        child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text("Información de sitios"),
@@ -45,21 +38,6 @@ class _PlacesInfoState extends State<PlacesInfo> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                ElevatedButton(
-                    style: TextButton.styleFrom(
-                        backgroundColor: const Color.fromRGBO(25, 150, 125, 1),
-                        minimumSize: const Size.fromHeight(40)),
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/PlacesInfoForm",
-                          arguments: {
-                            'placeId': '',
-                            'address': '',
-                            'descripction': '',
-                            'name': '',
-                            'profile_img': '',
-                          });
-                    },
-                    child: const Text("Añadir nuevo sitio")),
                 itemsPlaces == []
                     ? const Center()
                     : ListView.builder(
@@ -120,9 +98,12 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
-                                        ElevatedButton(
-                                            onPressed: () async {
-                                              SharedPreferences _placeId =
+                                            ElevatedButton(
+                                    style: TextButton.styleFrom(
+                                        backgroundColor: const Color.fromARGB(
+                                                  255, 8, 68, 16)),
+                                    onPressed: () async {
+                                      SharedPreferences _placeId =
                                                   await SharedPreferences
                                                       .getInstance();
                                               _placeId.setString(
@@ -134,66 +115,24 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          PlacesGalleryForm(
+                                                          GalleryPlace(
                                                               itemsPlaces[i]
                                                                   .name)));
-                                            },
-                                            child: const Icon(Icons.image,
-                                                color: Colors.white),
-                                            style: ElevatedButton.styleFrom(
-                                              primary: const Color.fromARGB(
-                                                  255, 8, 68, 16),
-                                              shape: const CircleBorder(),
-                                            )),
-                                        const Padding(
-                                          padding: EdgeInsets.only(left: 10),
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text('Ver imágenes'),
+                                        SizedBox(
+                                          width: 5,
                                         ),
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                  context, "/PlacesInfoForm",
-                                                  arguments: {
-                                                    'placeId':
-                                                        itemsPlaces[i].placeId,
-                                                    'address':
-                                                        itemsPlaces[i].address!,
-                                                    'description':
-                                                        itemsPlaces[i]
-                                                            .description!,
-                                                    'name':
-                                                        itemsPlaces[i].name!,
-                                                    'profile_img':
-                                                        itemsPlaces[i]
-                                                            .profile_img!
-                                                  });
-                                            },
-                                            child: const Icon(
-                                                Icons.border_color,
-                                                color: Color.fromARGB(
-                                                    255, 255, 255, 255)),
-                                            style: ElevatedButton.styleFrom(
-                                              primary: const Color.fromARGB(
-                                                  255, 27, 94, 238),
-                                              shape: const CircleBorder(),
-                                            )),
-                                        const Padding(
-                                          padding: EdgeInsets.only(left: 10),
+                                        Icon(
+                                          Icons.image,
+                                          size: 24.0,
                                         ),
-                                        ElevatedButton(
-                                            onPressed: () async {
-                                              await ConectionMongodb
-                                                  .changeCollection(
-                                                      'tbl_places');
-                                              await ConectionMongodb.delete(
-                                                  itemsPlaces[i].placeId);
-                                              _onLoading();
-                                            },
-                                            child: const Icon(Icons.cancel,
-                                                color: Colors.white),
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Colors.red,
-                                              shape: const CircleBorder(),
-                                            ))
+                                      ],
+                                    ),
+                                  ),
                                       ],
                                     ),
                                   ),
@@ -206,7 +145,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
               ],
             ),
           ),
-        )));
+        ));
   }
 
   void _onLoading() async {

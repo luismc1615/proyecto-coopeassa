@@ -1,16 +1,15 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_project/src/pages/client/contact_form.dart';
+import 'package:mobile_project/src/pages/client/places_info.dart';
 import 'package:mobile_project/src/pages/forms/about.dart';
 import 'package:mobile_project/src/pages/login/login.dart';
-import 'package:mobile_project/src/pages/principal_pages/curiosities_pets.dart';
-import 'package:mobile_project/src/pages/principal_pages/select_pet_relationship.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../admin/pages/places_info.dart';
 import '../admin/pages/users_info.dart';
 
 class MenuScreen extends StatefulWidget {
-  static const String ROUTE = "/menu";
+  static const String ROUTE = "/";
   var numPage;
   MenuScreen(this.numPage);
   @override
@@ -20,11 +19,9 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   int _actualPage = 0;
   final List<Widget> _pages = [
-    //InfoPets(),
     PlacesInfo(),
-    UsersInfo(),
-    CuriositiesPets(),
-    SelectRelationshipsPet(),
+    const ContactForm(),
+    LoginScreen(),
     const About()
   ];
 
@@ -35,18 +32,14 @@ class _MenuScreenState extends State<MenuScreen> {
       semanticLabel: "Sitios",
     ),
     const Icon(
+      Icons.contact_mail,
+      color: Colors.white,
+      semanticLabel: "Contáctenos",
+    ),
+    const Icon(
       Icons.account_circle,
       color: Colors.white,
-      semanticLabel: "Perfiles",
-    ),
-    Image.asset('assets/images/curiosity.png',
-        color: Colors.white, height: 24, width: 24),
-    Image.asset('assets/images/paws_2.png',
-        color: Colors.white, height: 28, width: 28),
-    const Icon(
-      Icons.people,
-      color: Colors.white,
-      semanticLabel: "About Us",
+      semanticLabel: "Inicio Administradores",
     ),
   ];
 

@@ -7,8 +7,8 @@ import 'package:mobile_project/src/pages/forms/information_pets.dart';
 import 'package:mobile_project/src/pages/forms/pet_curiosities.dart';
 import 'package:mobile_project/src/pages/forms/pet_relationship.dart';
 import 'package:mobile_project/src/pages/forms/pet_walk.dart';
-import 'package:mobile_project/src/pages/login/login.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile_project/src/pages/menu/client_menu.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginScreen(),
+        '/': (context) => MenuScreen(0),
         '/PlacesInfoForm': (context) => const PlacesInfoForm(),
         '/UsersInfoForm': (context) => const UsersInfoForm(),
         ////////////////////////////////////////////////////////

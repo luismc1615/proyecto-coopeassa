@@ -1,12 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/utils/colors.dart';
-import 'package:mobile_project/src/pages/login/components/cancel_button.dart';
 import 'forms/login_form.dart';
-import 'forms/register_form.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const String ROUTE = "/";
+  static const String ROUTE = "/login";
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -53,7 +51,9 @@ class _LoginScreenState extends State<LoginScreen>
         child: Scaffold(
           backgroundColor: /* DateTime.now().hour > 18 || DateTime.now().hour < 6
               ? const Color.fromARGB(255, 17, 17, 17)
-              : */ const Color.fromARGB(255, 241, 240, 240),
+              : */
+              Color.fromARGB(255, 255, 253, 253),
+          appBar: AppBar(centerTitle: true, title: const Text("Inicio para administradores")),
           body: Stack(
             children: [
               // Lets add some decorations
@@ -78,52 +78,12 @@ class _LoginScreenState extends State<LoginScreen>
                         borderRadius: BorderRadius.circular(100),
                         color: kPrimaryColor),
                   )),
-
-              // Cancel Button
-              CancelButton(
-                isLogin: isLogin,
-                animationDuration: animationDuration,
-                size: size,
-                animationController: animationController,
-                tapEvent: isLogin
-                    ? null
-                    : () {
-                        // returning null to disable the button
-                        animationController!.reverse();
-                        setState(() {
-                          isLogin = !isLogin;
-                        });
-                      },
-              ),
-
               // Login Form
               LoginForm(
                   isLogin: isLogin,
                   animationDuration: animationDuration,
                   size: size,
                   defaultLoginSize: defaultLoginSize),
-
-              // Register Container
-              AnimatedBuilder(
-                animation: animationController!,
-                builder: (context, child) {
-                  if (viewInset == 0 && isLogin) {
-                    return buildRegisterContainer();
-                  } else if (!isLogin) {
-                    return buildRegisterContainer();
-                  }
-
-                  // Returning empty container to hide the widget
-                  return Container();
-                },
-              ),
-
-              // Register Form
-              RegisterForm(
-                  isLogin: isLogin,
-                  animationDuration: animationDuration,
-                  size: size,
-                  defaultLoginSize: defaultRegisterSize),
             ],
           ),
         ));

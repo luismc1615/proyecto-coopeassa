@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/models/usersDTO.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mobile_project/src/pages/menu/client_menu.dart';
 
 class UsersInfo extends StatefulWidget {
   // ignore: constant_identifier_names
@@ -26,7 +26,13 @@ class _UsersInfoState extends State<UsersInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MenuScreen(2)));
+          return true;
+        },
+        child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text("Información de perfiles"),
@@ -185,7 +191,7 @@ class _UsersInfoState extends State<UsersInfo> {
               ],
             ),
           ),
-        ));
+        )));
   }
 
   void _onLoading() async {

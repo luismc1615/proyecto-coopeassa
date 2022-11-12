@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -6,16 +5,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
 import 'package:mobile_project/src/pages/menu/admin_menu.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String UsersInfoFormRoute = '/user_info_form';
+const String ContactFormRoute = '/user_info_form';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case UsersInfoFormRoute:
-        return MaterialPageRoute(builder: (_) => const UsersInfoForm());
+      case ContactFormRoute:
+        return MaterialPageRoute(builder: (_) => const ContactForm());
       default:
         return MaterialPageRoute(
             builder: (_) => const Scaffold(
@@ -26,7 +24,7 @@ class Router {
 }
 
 class MyApp extends StatefulWidget {
-  static const String ROUTE = "/UsersInfoForm";
+  static const String ROUTE = "/ContactForm";
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -37,28 +35,28 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        title: "Registro de perfil",
-        home: UsersInfoForm(),
+        title: "Contáctenos",
+        home: ContactForm(),
         onGenerateRoute: Router.generateRoute,
-        initialRoute: UsersInfoFormRoute);
+        initialRoute: ContactFormRoute);
   }
 }
 
-class UsersInfoForm extends StatefulWidget {
-  const UsersInfoForm({Key? key}) : super(key: key);
+class ContactForm extends StatefulWidget {
+  const ContactForm({Key? key}) : super(key: key);
   @override
-  _UsersInfoFormState createState() => _UsersInfoFormState();
+  _ContactFormState createState() => _ContactFormState();
 }
 
-class _UsersInfoFormState extends State<UsersInfoForm> {
+class _ContactFormState extends State<ContactForm> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   String name = '';
   String nacionality = '';
   String phone = '';
   String email = '';
   String address = '';
+  String description = '';
 
-  final ImagePicker _imagePicker = ImagePicker();
   final storage =
       FirebaseStorage.instanceFor(bucket: 'gs://homepets-c02ac.appspot.com')
           .ref();
@@ -105,13 +103,18 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
     setState(() {});
   }
 
+  void setDescription(String descriptionInfo) {
+    description = descriptionInfo;
+    setState(() {});
+  }
+
   void _submit() {
     showDialog<void>(
       context: context,
       barrierDismissible: true, // user can tap anywhere to close the pop up
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('La información del usuario ha sido registrada'),
+          title: const Text('Información enviada con éxito'),
           actions: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -141,7 +144,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
 
   @override
   Widget build(BuildContext context) {
-    final itemUsers = ModalRoute.of(context)!.settings.arguments as Map;
     return WillPopScope(
         onWillPop: () async {
           Navigator.push(
@@ -149,8 +151,9 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
           return true;
         },
         child: Scaffold(
+          backgroundColor: const Color.fromARGB(255, 255, 253, 253),
           appBar: AppBar(
-              centerTitle: true, title: const Text("Registro de perfil")),
+              centerTitle: true, title: const Text("Contáctenos si desea:")),
           body: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
@@ -158,13 +161,10 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                 children: <Widget>[
                   const Align(
                     alignment: Alignment.center,
-                    child: Text("Ingrese la información del perfil",
+                    child: Text("Obtener información o reservar",
                         style: TextStyle(
                           fontSize: 20,
                         )),
-                  ),
-                  const SizedBox(
-                    height: 20,
                   ),
                   Form(
                     key: _formKey,
@@ -178,8 +178,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          initialValue:
-                              itemUsers['name'] != '' ? itemUsers['name'] : '',
                           decoration: const InputDecoration(
                               labelText: 'Nombre',
                               enabledBorder: OutlineInputBorder(
@@ -189,6 +187,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
+                          keyboardType: TextInputType.name,
                           onFieldSubmitted: (value) {
                             setState(() {
                               name = value.capitalize();
@@ -212,9 +211,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          initialValue: itemUsers['nacionality'] != ''
-                              ? itemUsers['nacionality']
-                              : '',
                           decoration: const InputDecoration(
                               labelText: 'Nacionalidad',
                               enabledBorder: OutlineInputBorder(
@@ -224,6 +220,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
+                          keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -247,9 +244,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          initialValue: itemUsers['phone'] != ''
-                              ? itemUsers['phone']
-                              : '',
                           decoration: const InputDecoration(
                               labelText: 'Teléfono',
                               enabledBorder: OutlineInputBorder(
@@ -259,6 +253,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
+                          keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -282,9 +277,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          initialValue: itemUsers['email'] != ''
-                              ? itemUsers['email']
-                              : '',
                           decoration: const InputDecoration(
                               labelText: 'Correo electrónico',
                               enabledBorder: OutlineInputBorder(
@@ -294,6 +286,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
+                          keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -317,9 +310,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          initialValue: itemUsers['address'] != ''
-                              ? itemUsers['address']
-                              : '',
                           decoration: const InputDecoration(
                               labelText: 'Dirección',
                               enabledBorder: OutlineInputBorder(
@@ -329,7 +319,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
-                          keyboardType: TextInputType.name,
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -352,70 +342,61 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                         const SizedBox(
                           height: 20,
                         ),
+                        TextFormField(
+                          decoration: const InputDecoration(
+                              labelText: 'Descipción',
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0)),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 0.0),
+                              ),
+                              border: OutlineInputBorder()),
+                          onFieldSubmitted: (value) {
+                            setState(() {
+                              description = value.capitalize();
+                            });
+                          },
+                          onChanged: (value) {
+                            setDescription(value);
+                          },
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.length < 3) {
+                              return 'La descripción debe contener al menos 3 caracteres';
+                            } else if (value
+                                .contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
+                              return 'La descripción no puede contener caracteres especiales';
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(60)),
                           onPressed: () async {
-                            if (itemUsers['userId'] == '') {
-                              if (_formKey.currentState!.validate()) {
-                                await ConectionMongodb.changeCollection(
-                                    "tbl_users");
-                                await ConectionMongodb.inserData({
-                                  'name': name,
-                                  'nacionality': nacionality,
-                                  'phone': phone,
-                                  'email': email,
-                                  'address': address,
-                                });
-                                await PushNotificationsManager
-                                    .sendNotification2(
-                                  "Nuevo perfil registrado",
-                                  name,
-                                );
-                                _submit();
-                                // setState(() {
-                                //   urlPath = '';
-                                // });
-                              }
-                            } else {
-                              if (_formKey.currentState!.validate()) {
-                                if (name == '') {
-                                  name = itemUsers['name'];
-                                }
-                                if (nacionality == '') {
-                                  nacionality = itemUsers['nacionality'];
-                                }
-                                if (phone == '') {
-                                  phone = itemUsers['phone'];
-                                }
-                                if (email == '') {
-                                  email = itemUsers['email'];
-                                }
-                                if (address == '') {
-                                  address = itemUsers['address'];
-                                }
-                                // if (urlPath == '') {
-                                //   urlPath = itemUsers['profile_img'];
-                                // }
-                                await ConectionMongodb.changeCollection(
-                                    'tbl_users');
-                                await ConectionMongodb.update({
-                                  "_id": itemUsers['userId']
-                                }, {
-                                  '_id': itemUsers['userId'],
-                                  'name': name,
-                                  'nacionality': nacionality,
-                                  'phone': phone,
-                                  'email': email,
-                                  'address': address,
-                                });
-                                SmartDialog.showToast(
-                                    "Información editada con éxito");
-                              }
+                            if (_formKey.currentState!.validate()) {
+                              await ConectionMongodb.changeCollection(
+                                  "tbl_messages");
+                              await ConectionMongodb.inserData({
+                                'name': name,
+                                'nacionality': nacionality,
+                                'phone': phone,
+                                'email': email,
+                                'address': address,
+                                'description': description,
+                              });
+                              await PushNotificationsManager.sendNotification2(
+                                "Mensaje enviado de tu parte",
+                                name,
+                              );
+                              _submit();
                             }
                           },
-                          child: Text(
-                              itemUsers['userId'] != '' ? 'Editar' : 'Guardar'),
+                          child: const Text('Enviar'),
                         ),
                       ],
                     ),
@@ -426,67 +407,11 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
           ),
         ));
   }
-
-  //se comento pero se puede incorporar mas adelante
-
-  // Future openGalery() async {
-  //   UploadTask? task;
-  //   if (await Permission.storage.request().isGranted) {
-  //     XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
-  //     if (image != null) {
-  //       SmartDialog.showLoading();
-  //       try {
-  //         task = uploadFile('img_profile/${image.name}', File(image.path));
-  //         if (task == null) return;
-  //         final snapshot = await task.whenComplete(() {});
-  //         // urlPath = await snapshot.ref.getDownloadURL();
-  //         setState(() {});
-  //       } catch (error) {
-  //         print('Error-> $error');
-  //       }
-  //       SmartDialog.dismiss();
-  //     }
-  //   } else {
-  //     Permission.storage.request();
-  //   }
-  // }
-
-  // Future openCamera() async {
-  //   UploadTask? task;
-  //   if (await Permission.camera.request().isGranted) {
-  //     XFile? image = await _imagePicker.pickImage(source: ImageSource.camera);
-  //     if (image != null) {
-  //       SmartDialog.showLoading();
-  //       try {
-  //         task = uploadFile('img_profile/${image.name}', File(image.path));
-  //         if (task == null) return;
-  //         final snapshot = await task.whenComplete(() {});
-  //         // urlPath = await snapshot.ref.getDownloadURL();
-  //         setState(() {});
-  //       } catch (error) {
-  //         print('Error-> $error');
-  //       }
-  //       SmartDialog.dismiss();
-  //     }
-  //   } else {
-  //     Permission.storage.request();
-  //   }
-  // }
-
-  UploadTask? uploadFile(String destination, File file) {
-    try {
-      final ref = FirebaseStorage.instance.ref(destination);
-
-      return ref.putFile(file);
-    } on FirebaseException catch (e) {
-      return null;
-    }
-  }
 }
 
 extension StringExtension on String {
   // Method used for capitalizing the input from the form
   String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1)}";
+    return "${this[0].toUpperCase()}${substring(1)}";
   }
 }
