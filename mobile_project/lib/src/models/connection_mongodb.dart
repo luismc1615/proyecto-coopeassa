@@ -81,7 +81,7 @@ class ConectionMongodb {
   }
 
   static Future<List<Map<String, dynamic>>?> getUsers() async {
-    await ConectionMongodb.changeCollection('tbl_users');
+    await ConectionMongodb.changeCollection('tbl_profiles');
     final users = await _userCollection?.find().toList();
     return users;
   }

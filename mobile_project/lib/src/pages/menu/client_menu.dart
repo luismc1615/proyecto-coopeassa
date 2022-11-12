@@ -6,7 +6,7 @@ import 'package:mobile_project/src/pages/forms/about.dart';
 import 'package:mobile_project/src/pages/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../admin/pages/users_info.dart';
+import '../admin/users_info.dart';
 
 class MenuScreen extends StatefulWidget {
   static const String ROUTE = "/";

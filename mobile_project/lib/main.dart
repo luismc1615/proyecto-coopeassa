@@ -28,8 +28,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => MenuScreen(0),
         '/PlacesInfoForm': (context) => const PlacesInfoForm(),
-        '/UsersInfoForm': (context) =>
-            const UsersInfoForm(), ////////////////////////////////////////////////////////
+        '/UsersInfoForm': (context) => const UsersInfoForm(),
+
+        ////////////////////////////////////////////////////////
         '/informationPets': (context) => const InformationPets(),
         '/walkPets': (context) => const PetsTravel(),
         '/PetCuriosities': (context) => const PetCuriosities(),

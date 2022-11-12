@@ -168,7 +168,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                             onPressed: () async {
                                               await ConectionMongodb
                                                   .changeCollection(
-                                                      'tbl_users');
+                                                      'tbl_profiles');
                                               await ConectionMongodb.delete(
                                                   itemsUsers[i].userId);
                                               _onLoading();

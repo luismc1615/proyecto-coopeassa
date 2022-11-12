@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/models/reservationsDTO.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ReservationsInfo extends StatefulWidget {
   // ignore: constant_identifier_names
@@ -74,22 +73,22 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                   const SizedBox(height: 8),
                                   Container(
                                     padding: const EdgeInsets.all(5),
-                                    child: Text(itemsReservations[i].placeId!,
+                                    child: Text(itemsReservations[i].place!,
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                           foreground: Paint()
                                             ..style = PaintingStyle.stroke
                                             ..strokeWidth = 2
-                                            ..color =
-                                                const Color.fromARGB(255, 0, 0, 0),
+                                            ..color = const Color.fromARGB(
+                                                255, 0, 0, 0),
                                         )),
                                   ),
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "Sitio: " +
-                                            itemsReservations[i].placeId!,
+                                        "Reserva a nombre de: " +
+                                            itemsReservations[i].profile!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -97,19 +96,20 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "A nombre de: " +
-                                            itemsReservations[i].userId!,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Text(
-                                        "Cantidad: " +
+                                        "Cantidad de personas: " +
                                             itemsReservations[i]
                                                 .personQuantiti!
                                                 .toString(),
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                        "Fecha: " +
+                                            itemsReservations[i]
+                                                .date!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -178,9 +178,6 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                                     'reservationId':
                                                         itemsReservations[i]
                                                             .reservationId,
-                                                    'placeId':
-                                                        itemsReservations[i]
-                                                            .placeId!,
                                                     'personQuantiti':
                                                         itemsReservations[i]
                                                             .personQuantiti!,
@@ -199,9 +196,12 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                                     'address':
                                                         itemsReservations[i]
                                                             .address!,
-                                                    'userId':
+                                                    'place':
                                                         itemsReservations[i]
-                                                            .userId!,
+                                                            .place!,
+                                                    'profile':
+                                                        itemsReservations[i]
+                                                            .profile!,
                                                   });
                                             },
                                             child: const Icon(
@@ -253,14 +253,15 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
     myReservations.forEach((element) {
       itemsReservations.add(ReservationsDTO(
           element['_id'],
-          element['placeId'],
           element['personQuantiti'],
           element['checkInTime'],
           element['checkOutTime'],
           element['phone'],
           element['email'],
           element['address'],
-          element['userId']));
+          element['place'],
+          element['profile'],
+          element['date']));
     });
     if (mounted) setState(() {});
   }

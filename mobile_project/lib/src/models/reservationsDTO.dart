@@ -5,9 +5,6 @@ class ReservationsDTO {
   ObjectId? reservationId;
 
   @override
-  String? placeId;
-
-  @override
   int? personQuantiti;
 
   @override
@@ -26,8 +23,14 @@ class ReservationsDTO {
   String? address;
 
   @override
-  String? userId;
+  String? place;
 
-  ReservationsDTO(this.reservationId, this.placeId, this.personQuantiti, this.checkInTime,
-      this.checkOutTime, this.phone, this.email, this.address, this.userId);
+  @override
+  String? profile;
+
+  @override
+  String? date;
+
+  ReservationsDTO(this.reservationId, this.personQuantiti, this.checkInTime,
+      this.checkOutTime, this.phone, this.email, this.address, this.place, this.profile, this.date);
 }

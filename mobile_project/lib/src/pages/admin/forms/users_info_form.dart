@@ -189,6 +189,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
+                          keyboardType: TextInputType.name,
                           onFieldSubmitted: (value) {
                             setState(() {
                               name = value.capitalize();
@@ -224,6 +225,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
+                          keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -259,6 +261,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
+                          keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -294,6 +297,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
+                          keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -329,7 +333,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     BorderSide(color: Colors.grey, width: 0.0),
                               ),
                               border: OutlineInputBorder()),
-                          keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -359,7 +362,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                             if (itemUsers['userId'] == '') {
                               if (_formKey.currentState!.validate()) {
                                 await ConectionMongodb.changeCollection(
-                                    "tbl_users");
+                                    "tbl_profiles");
                                 await ConectionMongodb.inserData({
                                   'name': name,
                                   'nacionality': nacionality,
@@ -373,9 +376,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                   name,
                                 );
                                 _submit();
-                                // setState(() {
-                                //   urlPath = '';
-                                // });
                               }
                             } else {
                               if (_formKey.currentState!.validate()) {
@@ -398,7 +398,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                 //   urlPath = itemUsers['profile_img'];
                                 // }
                                 await ConectionMongodb.changeCollection(
-                                    'tbl_users');
+                                    'tbl_profiles');
                                 await ConectionMongodb.update({
                                   "_id": itemUsers['userId']
                                 }, {
@@ -426,52 +426,6 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
           ),
         ));
   }
-
-  //se comento pero se puede incorporar mas adelante
-
-  // Future openGalery() async {
-  //   UploadTask? task;
-  //   if (await Permission.storage.request().isGranted) {
-  //     XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
-  //     if (image != null) {
-  //       SmartDialog.showLoading();
-  //       try {
-  //         task = uploadFile('img_profile/${image.name}', File(image.path));
-  //         if (task == null) return;
-  //         final snapshot = await task.whenComplete(() {});
-  //         // urlPath = await snapshot.ref.getDownloadURL();
-  //         setState(() {});
-  //       } catch (error) {
-  //         print('Error-> $error');
-  //       }
-  //       SmartDialog.dismiss();
-  //     }
-  //   } else {
-  //     Permission.storage.request();
-  //   }
-  // }
-
-  // Future openCamera() async {
-  //   UploadTask? task;
-  //   if (await Permission.camera.request().isGranted) {
-  //     XFile? image = await _imagePicker.pickImage(source: ImageSource.camera);
-  //     if (image != null) {
-  //       SmartDialog.showLoading();
-  //       try {
-  //         task = uploadFile('img_profile/${image.name}', File(image.path));
-  //         if (task == null) return;
-  //         final snapshot = await task.whenComplete(() {});
-  //         // urlPath = await snapshot.ref.getDownloadURL();
-  //         setState(() {});
-  //       } catch (error) {
-  //         print('Error-> $error');
-  //       }
-  //       SmartDialog.dismiss();
-  //     }
-  //   } else {
-  //     Permission.storage.request();
-  //   }
-  // }
 
   UploadTask? uploadFile(String destination, File file) {
     try {
