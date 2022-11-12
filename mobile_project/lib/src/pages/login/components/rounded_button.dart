@@ -51,7 +51,7 @@ class RoundedButton extends StatelessWidget {
                 ToastType.error(
                     "La contraseña debe contener como mínimo 8 caracteres");
               } else {
-                if (await ConectionMongodb.searchUser(obj) == false) {
+                if (await ConectionMongodb.userExist(obj) == false) {
                   SmartDialog.show(builder: (context) {
                     return Container(
                       height: 620,
