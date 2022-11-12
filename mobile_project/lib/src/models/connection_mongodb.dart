@@ -73,7 +73,7 @@ class ConectionMongodb {
     return places;
   }
 
-   static Future<List<Map<String, dynamic>>?> getPlaceImages(
+  static Future<List<Map<String, dynamic>>?> getPlaceImages(
       String? placeId) async {
     await ConectionMongodb.changeCollection('tbl_images_places');
     final d = await _userCollection?.find({'placeId': placeId}).toList();
@@ -84,6 +84,12 @@ class ConectionMongodb {
     await ConectionMongodb.changeCollection('tbl_users');
     final users = await _userCollection?.find().toList();
     return users;
+  }
+
+  static Future<List<Map<String, dynamic>>?> getReservations() async {
+    await ConectionMongodb.changeCollection('tbl_reservations');
+    final reservations = await _userCollection?.find().toList();
+    return reservations;
   }
 
   ///////////////////////////////////////////////////////////////////////////
@@ -122,7 +128,8 @@ class ConectionMongodb {
     return d;
   }
 
-    static Future<List<Map<String, dynamic>>?> getRelationshipsPets(String? petId) async {
+  static Future<List<Map<String, dynamic>>?> getRelationshipsPets(
+      String? petId) async {
     await ConectionMongodb.changeCollection('relationshipspets');
     final d = await _userCollection?.find({'pet_id': petId}).toList();
     return d;
