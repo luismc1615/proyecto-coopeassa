@@ -75,12 +75,6 @@ class _UsersInfoState extends State<UsersInfo> {
                               child: Column(
                                 children: <Widget>[
                                   const SizedBox(height: 8),
-                                  // itemsUsers[i].profile_img! != '' ?
-                                  // CircleAvatar(
-                                  //   radius: 120,
-                                  //   backgroundImage: NetworkImage(
-                                  //       itemsUsers[i].profile_img!),
-                                  // ) : const Center(),
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(itemsUsers[i].name!,
@@ -91,7 +85,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                             ..style = PaintingStyle.stroke
                                             ..strokeWidth = 2
                                             ..color =
-                                                Color.fromARGB(255, 0, 0, 0),
+                                                const Color.fromARGB(255, 0, 0, 0),
                                         )),
                                   ),
                                   Container(
@@ -173,7 +167,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                                   itemsUsers[i].userId);
                                               _onLoading();
                                             },
-                                            child: const Icon(Icons.cancel,
+                                            child: const Icon(Icons.delete,
                                                 color: Colors.white),
                                             style: ElevatedButton.styleFrom(
                                               primary: Colors.red,

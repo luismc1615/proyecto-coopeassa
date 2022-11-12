@@ -42,12 +42,18 @@ class _MenuScreenState extends State<MenuScreen> {
       color: Colors.white,
       semanticLabel: "Perfiles",
     ),
-    Image.asset('assets/images/curiosity.png',
-        color: Colors.white, height: 24, width: 24),
-    Image.asset('assets/images/paws_2.png',
-        color: Colors.white, height: 28, width: 28),
     const Icon(
-      Icons.people,
+      Icons.assignment_rounded,
+      color: Colors.white,
+      semanticLabel: "Perfiles",
+    ),
+    const Icon(
+      Icons.chat,
+      color: Colors.white,
+      semanticLabel: "Perfiles",
+    ),
+    const Icon(
+      Icons.admin_panel_settings,
       color: Colors.white,
       semanticLabel: "About Us",
     ),

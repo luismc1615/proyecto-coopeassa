@@ -172,7 +172,7 @@ class _TravelPetsState extends State<TravelPets> {
                                                   itemsPetsWalk[i].petWalkId);
                                               _onLoading();
                                             },
-                                            child: const Icon(Icons.cancel,
+                                            child: const Icon(Icons.delete,
                                                 color: Colors.white),
                                             style: ElevatedButton.styleFrom(
                                               primary: Colors.red,

@@ -214,7 +214,7 @@ class _RelationshipsPetState extends State<RelationshipsPet> {
                                                           .relationshipId);
                                                   _onLoading();
                                                 },
-                                                child: const Icon(Icons.cancel,
+                                                child: const Icon(Icons.delete,
                                                     color: Colors.white),
                                                 style: ElevatedButton.styleFrom(
                                                   primary: Colors.red,

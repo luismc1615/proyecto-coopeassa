@@ -366,7 +366,7 @@ class _PetCuriositiesState extends State<PetCuriosities> {
                                                   const SizedBox(width: 4.0),
                                                   InkWell(
                                                     child: const Icon(
-                                                      Icons.cancel,
+                                                      Icons.delete,
                                                       size: 17.0,
                                                       color: Color.fromARGB(
                                                           255, 0, 0, 0),

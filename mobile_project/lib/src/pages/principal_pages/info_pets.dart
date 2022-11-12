@@ -170,7 +170,7 @@ class _InfoPetsState extends State<InfoPets> {
                                                   itemsPets[i].petId);
                                               _onLoading();
                                             },
-                                            child: const Icon(Icons.cancel,
+                                            child: const Icon(Icons.delete,
                                                 color: Colors.white),
                                             style: ElevatedButton.styleFrom(
                                               primary: Colors.red,

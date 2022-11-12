@@ -188,7 +188,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                                   itemsPlaces[i].placeId);
                                               _onLoading();
                                             },
-                                            child: const Icon(Icons.cancel,
+                                            child: const Icon(Icons.delete,
                                                 color: Colors.white),
                                             style: ElevatedButton.styleFrom(
                                               primary: Colors.red,

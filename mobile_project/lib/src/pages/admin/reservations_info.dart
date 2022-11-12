@@ -28,7 +28,7 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text("Información de perfiles"),
+          title: const Text("Información de reservas"),
           backgroundColor: const Color.fromRGBO(25, 150, 125, 1),
         ),
         body: SingleChildScrollView(
@@ -226,7 +226,7 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                                       .reservationId);
                                               _onLoading();
                                             },
-                                            child: const Icon(Icons.cancel,
+                                            child: const Icon(Icons.delete,
                                                 color: Colors.white),
                                             style: ElevatedButton.styleFrom(
                                               primary: Colors.red,
