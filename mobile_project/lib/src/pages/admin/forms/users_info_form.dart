@@ -359,7 +359,12 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                           style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(60)),
                           onPressed: () async {
-                            if (itemUsers['userId'] == '') {
+                            if (itemUsers['userId'] == '' &&
+                                itemUsers['name'] == '' &&
+                                itemUsers['nacionality'] == '' &&
+                                itemUsers['phone'] == '' &&
+                                itemUsers['email'] == '' &&
+                                itemUsers['address'] == '') {
                               if (_formKey.currentState!.validate()) {
                                 await ConectionMongodb.changeCollection(
                                     "tbl_profiles");
@@ -377,7 +382,12 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                 );
                                 _submit();
                               }
-                            } else {
+                            } else if (itemUsers['userId'] != '' &&
+                                itemUsers['name'] != '' &&
+                                itemUsers['nacionality'] != '' &&
+                                itemUsers['phone'] != '' &&
+                                itemUsers['email'] != '' &&
+                                itemUsers['address'] != '') {
                               if (_formKey.currentState!.validate()) {
                                 if (name == '') {
                                   name = itemUsers['name'];
@@ -408,6 +418,48 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                 });
                                 SmartDialog.showToast(
                                     "Información editada con éxito");
+                              }
+                            } else if (itemUsers['userId'] == '' &&
+                                itemUsers['name'] != '' &&
+                                itemUsers['nacionality'] != '' &&
+                                itemUsers['phone'] != '' &&
+                                itemUsers['email'] != '' &&
+                                itemUsers['address'] != '') {
+                              if (_formKey.currentState!.validate()) {
+                                if (name == '') {
+                                  name = itemUsers['name'];
+                                }
+                                if (nacionality == '') {
+                                  nacionality = itemUsers['nacionality'];
+                                }
+                                if (phone == '') {
+                                  phone = itemUsers['phone'];
+                                }
+                                if (email == '') {
+                                  email = itemUsers['email'];
+                                }
+                                if (address == '') {
+                                  address = itemUsers['address'];
+                                }
+                                await ConectionMongodb.changeCollection(
+                                    "tbl_profiles");
+                                await ConectionMongodb.insert({
+                                  'name': name,
+                                  'nacionality': nacionality,
+                                  'phone': phone,
+                                  'email': email,
+                                  'address': address,
+                                });
+                                await PushNotificationsManager
+                                    .sendNotification2(
+                                  "Nuevo perfil registrado",
+                                  name,
+                                );
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MenuScreen(1)));
+                                _submit();
                               }
                             }
                           },

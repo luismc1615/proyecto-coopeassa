@@ -20,7 +20,7 @@ class _UsersInfoState extends State<UsersInfo> {
   }
 
   static loadPreferences() async {
-    var users = await ConectionMongodb.getUsers();
+    var users = await ConectionMongodb.getProfiles();
     return users;
   }
 
