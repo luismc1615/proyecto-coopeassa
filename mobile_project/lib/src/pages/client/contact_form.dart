@@ -382,12 +382,12 @@ class _ContactFormState extends State<ContactForm> {
                               await ConectionMongodb.changeCollection(
                                   "tbl_messages");
                               await ConectionMongodb.insert({
-                                'name': name,
-                                'nacionality': nacionality,
-                                'phone': phone,
-                                'email': email,
-                                'address': address,
-                                'description': description,
+                                'name': name.trim(),
+                                'nacionality': nacionality.trim(),
+                                'phone': phone.trim(),
+                                'email': email.trim(),
+                                'address': address.trim(),
+                                'description': description.trim(),
                               });
                               await PushNotificationsManager.sendNotification2(
                                 "Mensaje enviado de tu parte",

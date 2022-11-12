@@ -97,11 +97,11 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   const SizedBox(height: 10),
                   RoundedButton(title: 'Registrarse', obj: {
-                    'name': nameInfo,
-                    'email': emailInfo,
-                    'phone': phoneInfo,
-                    'username': usernameInfo,
-                    'password': passwordInfo
+                    'name': nameInfo.trim(),
+                    'email': emailInfo.trim(),
+                    'phone': phoneInfo.trim(),
+                    'username': usernameInfo.trim(),
+                    'password': passwordInfo.trim()
                   }),
                   const SizedBox(height: 10),
                 ],

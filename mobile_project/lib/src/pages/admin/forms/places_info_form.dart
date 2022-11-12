@@ -384,7 +384,7 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                   await ConectionMongodb.insert({
                                     'address': address,
                                     'description': description,
-                                    'name': name,
+                                    'name': name.trim(),
                                     'profile_img': urlPath,
                                   });
                                   await PushNotificationsManager
@@ -425,7 +425,7 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                     '_id': itemPlaces['placeId'],
                                     'address': address,
                                     'description': description,
-                                    'name': name,
+                                    'name': name.trim(),
                                     'profile_img': urlPath,
                                   });
                                   SmartDialog.showToast(
@@ -441,7 +441,7 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                       '_id': itemPlaces['placeId'],
                                       'address': address,
                                       'description': description,
-                                      'name': name,
+                                      'name': name.trim(),
                                       'profile_img': urlPath,
                                     });
                                     SmartDialog.showToast(

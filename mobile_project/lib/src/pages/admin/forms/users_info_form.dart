@@ -372,11 +372,11 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                   await ConectionMongodb.changeCollection(
                                       "tbl_profiles");
                                   await ConectionMongodb.insert({
-                                    'name': name,
-                                    'nacionality': nacionality,
-                                    'phone': phone,
-                                    'email': email,
-                                    'address': address,
+                                    'name': name.trim(),
+                                    'nacionality': nacionality.trim(),
+                                    'phone': phone.trim(),
+                                    'email': email.trim(),
+                                    'address': address.trim(),
                                   });
                                   await PushNotificationsManager
                                       .sendNotification2(
@@ -418,11 +418,11 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     "_id": itemUsers['userId']
                                   }, {
                                     '_id': itemUsers['userId'],
-                                    'name': name,
-                                    'nacionality': nacionality,
-                                    'phone': phone,
-                                    'email': email,
-                                    'address': address,
+                                    'name': name.trim(),
+                                    'nacionality': nacionality.trim(),
+                                    'phone': phone.trim(),
+                                    'email': email.trim(),
+                                    'address': address.trim(),
                                   });
                                   SmartDialog.showToast(
                                       "Información editada con éxito");
@@ -436,11 +436,11 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                       "_id": itemUsers['userId']
                                     }, {
                                       '_id': itemUsers['userId'],
-                                      'name': name,
-                                      'nacionality': nacionality,
-                                      'phone': phone,
-                                      'email': email,
-                                      'address': address,
+                                      'name': name.trim(),
+                                      'nacionality': nacionality.trim(),
+                                      'phone': phone.trim(),
+                                      'email': email.trim(),
+                                      'address': address.trim(),
                                     });
                                     SmartDialog.showToast(
                                         "Información editada con éxito");
@@ -477,11 +477,11 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                   await ConectionMongodb.changeCollection(
                                       "tbl_profiles");
                                   await ConectionMongodb.insert({
-                                    'name': name,
-                                    'nacionality': nacionality,
-                                    'phone': phone,
-                                    'email': email,
-                                    'address': address,
+                                    'name': name.trim(),
+                                    'nacionality': nacionality.trim(),
+                                    'phone': phone.trim(),
+                                    'email': email.trim(),
+                                    'address': address.trim(),
                                   });
                                   await PushNotificationsManager
                                       .sendNotification2(
