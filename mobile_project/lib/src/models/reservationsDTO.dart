@@ -14,15 +14,6 @@ class ReservationsDTO {
   String? checkOutTime;
 
   @override
-  String? phone;
-
-  @override
-  String? email;
-
-  @override
-  String? address;
-
-  @override
   String? place;
 
   @override
@@ -32,5 +23,5 @@ class ReservationsDTO {
   String? date;
 
   ReservationsDTO(this.reservationId, this.personQuantiti, this.checkInTime,
-      this.checkOutTime, this.phone, this.email, this.address, this.place, this.profile, this.date);
+      this.checkOutTime, this.place, this.profile, this.date);
 }

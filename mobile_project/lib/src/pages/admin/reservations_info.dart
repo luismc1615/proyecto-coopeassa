@@ -44,14 +44,12 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                       Navigator.pushNamed(context, "/ReservationsInfoForm",
                           arguments: {
                             'reservationId': '',
-                            'placeId': '',
                             'personQuantiti': 0,
                             'checkInTime': '',
                             'checkOutTime': '',
-                            'phone': '',
-                            'email': '',
-                            'address': '',
-                            'userId': ''
+                            'place': '',
+                            'profile': '',
+                            'date': '',
                           });
                     },
                     child: const Text("Añadir nueva reserva")),
@@ -107,9 +105,7 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "Fecha: " +
-                                            itemsReservations[i]
-                                                .date!,
+                                        "Fecha: " + itemsReservations[i].date!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -136,33 +132,6 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Text(
-                                        "Teléfono: " +
-                                            itemsReservations[i].phone!,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Text(
-                                        "Correo: " +
-                                            itemsReservations[i].email!,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Text(
-                                        "Dirección: " +
-                                            itemsReservations[i].address!,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
                                   const SizedBox(height: 5),
                                   Padding(
                                     padding: const EdgeInsets.all(5),
@@ -170,49 +139,6 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(context,
-                                                  "/ReservationsInfoForm",
-                                                  arguments: {
-                                                    'reservationId':
-                                                        itemsReservations[i]
-                                                            .reservationId,
-                                                    'personQuantiti':
-                                                        itemsReservations[i]
-                                                            .personQuantiti!,
-                                                    'checkInTime':
-                                                        itemsReservations[i]
-                                                            .checkInTime!,
-                                                    'checkOutTime':
-                                                        itemsReservations[i]
-                                                            .checkOutTime!,
-                                                    'phone':
-                                                        itemsReservations[i]
-                                                            .phone!,
-                                                    'email':
-                                                        itemsReservations[i]
-                                                            .email!,
-                                                    'address':
-                                                        itemsReservations[i]
-                                                            .address!,
-                                                    'place':
-                                                        itemsReservations[i]
-                                                            .place!,
-                                                    'profile':
-                                                        itemsReservations[i]
-                                                            .profile!,
-                                                  });
-                                            },
-                                            child: const Icon(
-                                                Icons.border_color,
-                                                color: Color.fromARGB(
-                                                    255, 255, 255, 255)),
-                                            style: ElevatedButton.styleFrom(
-                                              primary: const Color.fromARGB(
-                                                  255, 27, 94, 238),
-                                              shape: const CircleBorder(),
-                                            )),
                                         const Padding(
                                           padding: EdgeInsets.only(left: 10),
                                         ),
@@ -256,9 +182,6 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
           element['personQuantiti'],
           element['checkInTime'],
           element['checkOutTime'],
-          element['phone'],
-          element['email'],
-          element['address'],
           element['place'],
           element['profile'],
           element['date']));
