@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:mobile_project/src/models/placesDTO.dart';
+import 'package:mobile_project/src/models/usersDTO.dart';
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
 import 'package:mobile_project/src/pages/menu/admin_menu.dart';
 
@@ -55,14 +56,16 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
   DateTime checkInTime = DateTime.now();
   DateTime checkOutTime = DateTime.now();
   String place = 'Seleccione un sitio';
-  String profile = '';
+  String profile = 'A nombre de:';
   int personQuantiti = 0;
 
   late List<PlacesDTO> itemsPlaces = <PlacesDTO>[];
+  late List<UsersDTO> itemsProfiles = <UsersDTO>[];
 
   @override
   void initState() {
-    _onLoading();
+    _onLoadingSities();
+    _onLoadingProfiles();
     Sduration.text = "";
     Eduration.text = "";
     PushNotificationsManager().init();
@@ -70,9 +73,14 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
     //set the initial value of text field
   }
 
-  static loadPreferences() async {
+  static loadSities() async {
     var sities = await ConectionMongodb.getPlaces();
     return sities;
+  }
+
+  static loadProfiles() async {
+    var profiles = await ConectionMongodb.getProfiles();
+    return profiles;
   }
 
   @override
@@ -275,30 +283,45 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                        labelText: 'A nombre de:',
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 0.0),
-                        ),
-                        border: OutlineInputBorder()),
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo vacío';
-                      } else if (value.contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
-                        return 'El perfil no puede contener caracteres especiales';
-                      }
-                    },
-                    onFieldSubmitted: (value) {
+                  // TextFormField(
+                  //   decoration: const InputDecoration(
+                  //       labelText: '',
+                  //       enabledBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  //         borderSide:
+                  //             BorderSide(color: Colors.grey, width: 0.0),
+                  //       ),
+                  //       border: OutlineInputBorder()),
+                  //   keyboardType: TextInputType.name,
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Campo vacío';
+                  //     } else if (value.contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
+                  //       return 'El perfil no puede contener caracteres especiales';
+                  //     }
+                  //   },
+                  //   onFieldSubmitted: (value) {
+                  //     setState(() {
+                  //       profile = value;
+                  //     });
+                  //   },
+                  //   onChanged: (value) {
+                  //     setprofile(value);
+                  //   },
+                  // ),
+                  DropdownButton(
+                    hint: Text(profile),
+                    items: itemsProfiles
+                        .map<DropdownMenuItem<String>>((UsersDTO pro) {
+                      return DropdownMenuItem<String>(
+                        value: pro.name,
+                        child: Text(pro.name!),
+                      );
+                    }).toList(),
+                    onChanged: (String? value) {
                       setState(() {
-                        profile = value;
+                        profile = value!;
                       });
-                    },
-                    onChanged: (value) {
-                      setprofile(value);
                     },
                   ),
                   const SizedBox(
@@ -333,7 +356,6 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                   const SizedBox(
                     height: 20,
                   ),
-
                   DropdownButton(
                     hint: Text(place),
                     items: itemsPlaces
@@ -349,11 +371,6 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                       });
                     },
                   ),
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-
                   const SizedBox(
                     height: 20,
                   ),
@@ -393,9 +410,9 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
         ));
   }
 
-  void _onLoading() async {
+  void _onLoadingSities() async {
     itemsPlaces = [];
-    List<Map<String, dynamic>> myPlaces = await loadPreferences();
+    List<Map<String, dynamic>> myPlaces = await loadSities();
     myPlaces.forEach((element) {
       itemsPlaces.add(PlacesDTO(
         element['_id'],
@@ -404,6 +421,22 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
         element['name'],
         element['profile_img'],
         element['activities'],
+      ));
+    });
+    if (mounted) setState(() {});
+  }
+
+  void _onLoadingProfiles() async {
+    itemsProfiles = [];
+    List<Map<String, dynamic>> myProfiles = await loadProfiles();
+    myProfiles.forEach((element) {
+      itemsProfiles.add(UsersDTO(
+        element['_id'],
+        element['name'],
+        element['nacionality'],
+        element['phone'],
+        element['email'],
+        element['address'],
       ));
     });
     if (mounted) setState(() {});
