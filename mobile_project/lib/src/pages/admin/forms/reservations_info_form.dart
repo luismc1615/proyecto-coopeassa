@@ -5,6 +5,7 @@ import 'package:mobile_project/src/models/placesDTO.dart';
 import 'package:mobile_project/src/models/usersDTO.dart';
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
 import 'package:mobile_project/src/pages/menu/admin_menu.dart';
+import 'package:mobile_project/src/utils/Toast.dart';
 
 const String ReservationsInfoFormRoute = '/ReservationsInfoForm';
 
@@ -55,7 +56,7 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
   var duration = '';
   DateTime checkInTime = DateTime.now();
   DateTime checkOutTime = DateTime.now();
-  String place = 'Seleccione un sitio';
+  String place = 'Seleccione un sitio:';
   String profile = 'A nombre de:';
   int personQuantiti = 0;
 
@@ -64,8 +65,7 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
 
   @override
   void initState() {
-    _onLoadingSities();
-    _onLoadingProfiles();
+    _onLoading();
     Sduration.text = "";
     Eduration.text = "";
     PushNotificationsManager().init();
@@ -283,50 +283,6 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                   const SizedBox(
                     height: 20,
                   ),
-                  // TextFormField(
-                  //   decoration: const InputDecoration(
-                  //       labelText: '',
-                  //       enabledBorder: OutlineInputBorder(
-                  //         borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  //         borderSide:
-                  //             BorderSide(color: Colors.grey, width: 0.0),
-                  //       ),
-                  //       border: OutlineInputBorder()),
-                  //   keyboardType: TextInputType.name,
-                  //   validator: (value) {
-                  //     if (value == null || value.isEmpty) {
-                  //       return 'Campo vacío';
-                  //     } else if (value.contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
-                  //       return 'El perfil no puede contener caracteres especiales';
-                  //     }
-                  //   },
-                  //   onFieldSubmitted: (value) {
-                  //     setState(() {
-                  //       profile = value;
-                  //     });
-                  //   },
-                  //   onChanged: (value) {
-                  //     setprofile(value);
-                  //   },
-                  // ),
-                  DropdownButton(
-                    hint: Text(profile),
-                    items: itemsProfiles
-                        .map<DropdownMenuItem<String>>((UsersDTO pro) {
-                      return DropdownMenuItem<String>(
-                        value: pro.name,
-                        child: Text(pro.name!),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {
-                      setState(() {
-                        profile = value!;
-                      });
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   TextFormField(
                     decoration: const InputDecoration(
                         labelText: 'Cantidad de personas',
@@ -351,6 +307,24 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                     },
                     onChanged: (value) {
                       setPersonQuantiti(int.parse(value));
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  DropdownButton(
+                    hint: Text(profile),
+                    items: itemsProfiles
+                        .map<DropdownMenuItem<String>>((UsersDTO pro) {
+                      return DropdownMenuItem<String>(
+                        value: pro.name,
+                        child: Text(pro.name!),
+                      );
+                    }).toList(),
+                    onChanged: (String? value) {
+                      setState(() {
+                        profile = value!;
+                      });
                     },
                   ),
                   const SizedBox(
@@ -382,23 +356,29 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                         minimumSize: const Size.fromHeight(60)),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        await ConectionMongodb.changeCollection(
-                            "tbl_reservations");
-                        await ConectionMongodb.insert({
-                          'personQuantiti': personQuantiti,
-                          'checkInTime':
-                              intl.DateFormat('HH:mm').format(checkInTime),
-                          'checkOutTime':
-                              intl.DateFormat('HH:mm').format(checkOutTime),
-                          'place': place,
-                          'profile': profile,
-                          'date': intl.DateFormat.yMd().format(date),
-                        });
-                        await PushNotificationsManager.sendNotification2(
-                          "Reserva registrada",
-                          "Lugar: " + place,
-                        );
-                        _submit();
+                        if (place == 'Seleccione un sitio:' ||
+                            profile == 'A nombre de:') {
+                          ToastType.error(
+                              "Debe seleccionar un sitio y un perfil");
+                        } else {
+                          await ConectionMongodb.changeCollection(
+                              "tbl_reservations");
+                          await ConectionMongodb.insert({
+                            'personQuantiti': personQuantiti,
+                            'checkInTime':
+                                intl.DateFormat('HH:mm').format(checkInTime),
+                            'checkOutTime':
+                                intl.DateFormat('HH:mm').format(checkOutTime),
+                            'place': place,
+                            'profile': profile,
+                            'date': intl.DateFormat.yMd().format(date),
+                          });
+                          await PushNotificationsManager.sendNotification2(
+                            "Reserva registrada",
+                            "Lugar: " + place,
+                          );
+                          _submit();
+                        }
                       }
                     },
                     child: const Text("Guardar"),
@@ -410,23 +390,7 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
         ));
   }
 
-  void _onLoadingSities() async {
-    itemsPlaces = [];
-    List<Map<String, dynamic>> myPlaces = await loadSities();
-    myPlaces.forEach((element) {
-      itemsPlaces.add(PlacesDTO(
-        element['_id'],
-        element['address'],
-        element['description'],
-        element['name'],
-        element['profile_img'],
-        element['activities'],
-      ));
-    });
-    if (mounted) setState(() {});
-  }
-
-  void _onLoadingProfiles() async {
+  void _onLoading() async {
     itemsProfiles = [];
     List<Map<String, dynamic>> myProfiles = await loadProfiles();
     myProfiles.forEach((element) {
@@ -437,6 +401,18 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
         element['phone'],
         element['email'],
         element['address'],
+      ));
+    });
+    itemsPlaces = [];
+    List<Map<String, dynamic>> myPlaces = await loadSities();
+    myPlaces.forEach((element) {
+      itemsPlaces.add(PlacesDTO(
+        element['_id'],
+        element['address'],
+        element['description'],
+        element['name'],
+        element['profile_img'],
+        element['activities'],
       ));
     });
     if (mounted) setState(() {});
