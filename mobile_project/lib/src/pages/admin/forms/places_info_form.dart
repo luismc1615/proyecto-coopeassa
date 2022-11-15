@@ -56,6 +56,7 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
   String address = '';
   String description = '';
   String name = '';
+  String activities = '';
   String urlPath = '';
 
   final ImagePicker _imagePicker = ImagePicker();
@@ -92,6 +93,11 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
 
   void setName(String nameInfo) {
     name = nameInfo;
+    setState(() {});
+  }
+
+  void setActivities(String activitiesInfo) {
+    activities = activitiesInfo;
     setState(() {});
   }
 
@@ -302,41 +308,6 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          initialValue: itemPlaces['description'] != ''
-                              ? itemPlaces['description']
-                              : '',
-                          decoration: const InputDecoration(
-                              labelText: 'Descripción',
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 0.0),
-                              ),
-                              border: OutlineInputBorder()),
-                          validator: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                value.length < 3) {
-                              return 'El descripción debe contener al menos 3 caracteres';
-                            } else if (value
-                                .contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
-                              return 'La descripción no puede contener caracteres especiales';
-                            }
-                          },
-                          onFieldSubmitted: (value) {
-                            setState(() {
-                              description = value.capitalize();
-                            });
-                          },
-                          onChanged: (value) {
-                            setDescription(value);
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
                           initialValue: itemPlaces['address'] != ''
                               ? itemPlaces['address']
                               : '',
@@ -371,6 +342,76 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                         const SizedBox(
                           height: 20,
                         ),
+                        TextFormField(
+                          initialValue: itemPlaces['activities'] != ''
+                              ? itemPlaces['activities']
+                              : '',
+                          decoration: const InputDecoration(
+                              labelText: 'Actividades',
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0)),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 0.0),
+                              ),
+                              border: OutlineInputBorder()),
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.length < 3) {
+                              return 'Las actividades debe contener al menos 3 caracteres';
+                            } else if (value
+                                .contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
+                              return 'Las actividades no puede contener caracteres especiales';
+                            }
+                          },
+                          onFieldSubmitted: (value) {
+                            setState(() {
+                              activities = value.capitalize();
+                            });
+                          },
+                          onChanged: (value) {
+                            setActivities(value);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          initialValue: itemPlaces['description'] != ''
+                              ? itemPlaces['description']
+                              : '',
+                          decoration: const InputDecoration(
+                              labelText: 'Descripción',
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0)),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 0.0),
+                              ),
+                              border: OutlineInputBorder()),
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.length < 3) {
+                              return 'El descripción debe contener al menos 3 caracteres';
+                            } else if (value
+                                .contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
+                              return 'La descripción no puede contener caracteres especiales';
+                            }
+                          },
+                          onFieldSubmitted: (value) {
+                            setState(() {
+                              description = value.capitalize();
+                            });
+                          },
+                          onChanged: (value) {
+                            setDescription(value);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(60)),
@@ -382,10 +423,11 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                   await ConectionMongodb.changeCollection(
                                       "tbl_places");
                                   await ConectionMongodb.insert({
-                                    'address': address,
-                                    'description': description,
+                                    'address': address.trim(),
+                                    'description': description.trim(),
                                     'name': name.trim(),
                                     'profile_img': urlPath,
+                                    'activities': activities.trim(),
                                   });
                                   await PushNotificationsManager
                                       .sendNotification2(
@@ -415,7 +457,9 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                 if (urlPath == '') {
                                   urlPath = itemPlaces['profile_img'];
                                 }
-
+                                if (activities == '') {
+                                  activities = itemPlaces['activities'];
+                                }
                                 if (name == itemPlaces['name']) {
                                   await ConectionMongodb.changeCollection(
                                       'tbl_places');
@@ -423,10 +467,11 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                     "_id": itemPlaces['placeId']
                                   }, {
                                     '_id': itemPlaces['placeId'],
-                                    'address': address,
-                                    'description': description,
+                                    'address': address.trim(),
+                                    'description': description.trim(),
                                     'name': name.trim(),
                                     'profile_img': urlPath,
+                                    'activities': activities.trim(),
                                   });
                                   SmartDialog.showToast(
                                       "Información editada con éxito");
@@ -439,10 +484,11 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
                                       "_id": itemPlaces['placeId']
                                     }, {
                                       '_id': itemPlaces['placeId'],
-                                      'address': address,
-                                      'description': description,
+                                      'address': address.trim(),
+                                      'description': description.trim(),
                                       'name': name.trim(),
                                       'profile_img': urlPath,
+                                      'activities': activities.trim(),
                                     });
                                     SmartDialog.showToast(
                                         "Información editada con éxito");

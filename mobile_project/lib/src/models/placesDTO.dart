@@ -11,10 +11,13 @@ class PlacesDTO {
   String? description;
 
   @override
+  String? name;
+
+  @override
   String? profile_img;
 
   @override
-  String? name;
+  String? activities;
 
-  PlacesDTO(this.placeId, this.address, this.description, this.profile_img, this.name);
+  PlacesDTO(this.placeId, this.address, this.description, this.name, this.profile_img, this.activities);
 }

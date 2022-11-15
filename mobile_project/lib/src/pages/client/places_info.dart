@@ -77,8 +77,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "Descripción: " +
-                                            itemsPlaces[i].description!,
+                                        "Dirección: " + itemsPlaces[i].address!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -86,7 +85,17 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "Dirección: " + itemsPlaces[i].address!,
+                                        "Actividades: " +
+                                            itemsPlaces[i].activities!,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                        "Descripción: " +
+                                            itemsPlaces[i].description!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -98,41 +107,42 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
-                                            ElevatedButton(
-                                    style: TextButton.styleFrom(
-                                        backgroundColor: const Color.fromARGB(
-                                                  255, 8, 68, 16)),
-                                    onPressed: () async {
-                                      SharedPreferences _placeId =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              _placeId.setString(
-                                                  'placeId',
-                                                  itemsPlaces[i]
-                                                      .placeId
-                                                      .toString());
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          GalleryPlace(
-                                                              itemsPlaces[i]
-                                                                  .name)));
-                                    },
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const [
-                                        Text('Ver imágenes'),
-                                        SizedBox(
-                                          width: 5,
+                                        ElevatedButton(
+                                          style: TextButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 8, 68, 16)),
+                                          onPressed: () async {
+                                            SharedPreferences _placeId =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            _placeId.setString(
+                                                'placeId',
+                                                itemsPlaces[i]
+                                                    .placeId
+                                                    .toString());
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        GalleryPlace(
+                                                            itemsPlaces[i]
+                                                                .name)));
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Text('Ver imágenes'),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Icon(
+                                                Icons.image,
+                                                size: 24.0,
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        Icon(
-                                          Icons.image,
-                                          size: 24.0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                       ],
                                     ),
                                   ),
@@ -152,8 +162,13 @@ class _PlacesInfoState extends State<PlacesInfo> {
     itemsPlaces = [];
     List<Map<String, dynamic>> myPlaces = await loadPreferences();
     myPlaces.forEach((element) {
-      itemsPlaces.add(PlacesDTO(element['_id'], element['address'],
-          element['description'], element['profile_img'], element['name']));
+      itemsPlaces.add(PlacesDTO(
+          element['_id'],
+          element['address'],
+          element['description'],
+          element['name'],
+          element['profile_img'],
+          element['activities']));
     });
     if (mounted) setState(() {});
   }
