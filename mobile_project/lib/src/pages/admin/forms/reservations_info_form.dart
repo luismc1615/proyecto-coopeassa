@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:mobile_project/src/models/placesDTO.dart';
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
 import 'package:mobile_project/src/pages/menu/admin_menu.dart';
 
@@ -53,17 +54,25 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
   var duration = '';
   DateTime checkInTime = DateTime.now();
   DateTime checkOutTime = DateTime.now();
-  String place = '';
+  String place = 'Seleccione un sitio';
   String profile = '';
   int personQuantiti = 0;
 
+  late List<PlacesDTO> itemsPlaces = <PlacesDTO>[];
+
   @override
   void initState() {
+    _onLoading();
     Sduration.text = "";
     Eduration.text = "";
     PushNotificationsManager().init();
     super.initState();
     //set the initial value of text field
+  }
+
+  static loadPreferences() async {
+    var sities = await ConectionMongodb.getPlaces();
+    return sities;
   }
 
   @override
@@ -140,6 +149,7 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
 
   @override
   Widget build(BuildContext context) {
+    var listPlaces = ['carro', 'moto', 'cuadra'];
     return WillPopScope(
         onWillPop: () async {
           Navigator.push(
@@ -323,31 +333,27 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                        labelText: 'Sitio',
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 0.0),
-                        ),
-                        border: OutlineInputBorder()),
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo vacío';
-                      }
-                      return null;
-                    },
-                    onFieldSubmitted: (value) {
+
+                  DropdownButton(
+                    hint: Text(place),
+                    items: itemsPlaces
+                        .map<DropdownMenuItem<String>>((PlacesDTO pl) {
+                      return DropdownMenuItem<String>(
+                        value: pl.name,
+                        child: Text(pl.name!),
+                      );
+                    }).toList(),
+                    onChanged: (String? value) {
                       setState(() {
-                        place = value;
+                        place = value!;
                       });
                     },
-                    onChanged: (value) {
-                      setPlace(value);
-                    },
                   ),
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -385,6 +391,22 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
             ),
           ]),
         ));
+  }
+
+  void _onLoading() async {
+    itemsPlaces = [];
+    List<Map<String, dynamic>> myPlaces = await loadPreferences();
+    myPlaces.forEach((element) {
+      itemsPlaces.add(PlacesDTO(
+        element['_id'],
+        element['address'],
+        element['description'],
+        element['name'],
+        element['profile_img'],
+        element['activities'],
+      ));
+    });
+    if (mounted) setState(() {});
   }
 }
 
