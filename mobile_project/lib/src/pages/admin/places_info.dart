@@ -44,14 +44,13 @@ class _PlacesInfoState extends State<PlacesInfo> {
               backgroundColor: const Color.fromARGB(255, 17, 77, 27),
               child: const Icon(Icons.add),
               onPressed: () {
-               Navigator.pushNamed(context, "/PlacesInfoForm",
-                              arguments: {
-                                'placeId': '',
-                                'address': '',
-                                'descripction': '',
-                                'name': '',
-                                'profile_img': '',
-                              });
+                Navigator.pushNamed(context, "/PlacesInfoForm", arguments: {
+                  'placeId': '',
+                  'address': '',
+                  'descripction': '',
+                  'name': '',
+                  'profile_img': '',
+                });
               },
             ),
             body: SingleChildScrollView(
@@ -77,10 +76,15 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                       const SizedBox(height: 8),
                                       itemsPlaces[i].profile_img! != ''
                                           ? CircleAvatar(
-                                              radius: 120,
+                                              radius: 115,
                                               backgroundImage: NetworkImage(
                                                   itemsPlaces[i].profile_img!),
                                             )
+                                            /* Image.network(
+                                              itemsPlaces[i].profile_img!,
+                                              fit: BoxFit
+                                                  .scaleDown, // Fixes border issues
+                                            ) */
                                           : const Center(),
                                       Container(
                                         padding: const EdgeInsets.all(5),
@@ -98,8 +102,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "Dirección: " +
-                                                itemsPlaces[i].address!,
+                                            "📍 " + itemsPlaces[i].address!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -107,22 +110,18 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "Actividades: " +
-                                                itemsPlaces[i].activities!,
+                                            "⛺ " + itemsPlaces[i].activities!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                            "Descripción: " +
-                                                itemsPlaces[i].description!,
+                                        child: Text(itemsPlaces[i].description!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
                                       ),
-                                      
                                       const SizedBox(height: 5),
                                       Padding(
                                         padding: const EdgeInsets.all(5),
@@ -151,7 +150,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                                 child: const Icon(Icons.image,
                                                     color: Colors.white),
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: const Color.fromARGB(
+                                                  backgroundColor: const Color.fromARGB(
                                                       255, 8, 68, 16),
                                                   shape: const CircleBorder(),
                                                 )),
@@ -188,7 +187,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                                     color: Color.fromARGB(
                                                         255, 255, 255, 255)),
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: const Color.fromARGB(
+                                                  backgroundColor: const Color.fromARGB(
                                                       255, 27, 94, 238),
                                                   shape: const CircleBorder(),
                                                 )),
@@ -208,7 +207,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                                 child: const Icon(Icons.delete,
                                                     color: Colors.white),
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: Colors.red,
+                                                  backgroundColor: Colors.red,
                                                   shape: const CircleBorder(),
                                                 ))
                                           ],

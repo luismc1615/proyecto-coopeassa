@@ -88,9 +88,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                            "Nacionalidad: " +
-                                                itemsUsers[i].nacionality!,
+                                        child: Text(itemsUsers[i].nacionality!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -98,7 +96,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "Teléfono: " + itemsUsers[i].phone!,
+                                            "📞 " + itemsUsers[i].phone!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -106,7 +104,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "Correo: " + itemsUsers[i].email!,
+                                            "📩 " + itemsUsers[i].email!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -114,8 +112,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "Dirección: " +
-                                                itemsUsers[i].address!,
+                                            "📍 " + itemsUsers[i].address!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),

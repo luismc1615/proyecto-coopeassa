@@ -77,7 +77,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "Dirección: " + itemsPlaces[i].address!,
+                                        "📍 " + itemsPlaces[i].address!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -85,7 +85,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "Actividades: " +
+                                        "⛺ " +
                                             itemsPlaces[i].activities!,
                                         style: const TextStyle(
                                             color: Colors.white,
@@ -94,7 +94,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "Descripción: " +
+                                        "" +
                                             itemsPlaces[i].description!,
                                         style: const TextStyle(
                                             color: Colors.white,
