@@ -31,28 +31,26 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
           title: const Text("Información de reservas"),
           backgroundColor: const Color.fromRGBO(25, 150, 125, 1),
         ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 17, 77, 27),
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Navigator.pushNamed(context, "/ReservationsInfoForm", arguments: {
+              'reservationId': '',
+              'personQuantiti': 0,
+              'checkInTime': '',
+              'checkOutTime': '',
+              'place': '',
+              'profile': '',
+              'date': '',
+            });
+          },
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                ElevatedButton(
-                    style: TextButton.styleFrom(
-                        backgroundColor: const Color.fromRGBO(25, 150, 125, 1),
-                        minimumSize: const Size.fromHeight(40)),
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/ReservationsInfoForm",
-                          arguments: {
-                            'reservationId': '',
-                            'personQuantiti': 0,
-                            'checkInTime': '',
-                            'checkOutTime': '',
-                            'place': '',
-                            'profile': '',
-                            'date': '',
-                          });
-                    },
-                    child: const Text("Añadir nueva reserva")),
                 itemsReservations == []
                     ? const Center()
                     : ListView.builder(

@@ -40,18 +40,11 @@ class _PlacesInfoState extends State<PlacesInfo> {
               title: const Text("Información de sitios"),
               backgroundColor: const Color.fromRGBO(25, 150, 125, 1),
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    ElevatedButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromRGBO(25, 150, 125, 1),
-                            minimumSize: const Size.fromHeight(40)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/PlacesInfoForm",
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: const Color.fromARGB(255, 17, 77, 27),
+              child: const Icon(Icons.add),
+              onPressed: () {
+               Navigator.pushNamed(context, "/PlacesInfoForm",
                               arguments: {
                                 'placeId': '',
                                 'address': '',
@@ -59,8 +52,13 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                 'name': '',
                                 'profile_img': '',
                               });
-                        },
-                        child: const Text("Añadir nuevo sitio")),
+              },
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
                     itemsPlaces == []
                         ? const Center()
                         : ListView.builder(
