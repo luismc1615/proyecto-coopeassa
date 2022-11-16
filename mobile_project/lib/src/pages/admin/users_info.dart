@@ -96,16 +96,14 @@ class _UsersInfoState extends State<UsersInfo> {
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                            "📞" + itemUsers[i].phone!,
+                                        child: Text("📞" + itemUsers[i].phone!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                            "📍 " + itemUsers[i].name!,
+                                        child: Text("📍 " + itemUsers[i].name!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -118,19 +116,45 @@ class _UsersInfoState extends State<UsersInfo> {
                                               MainAxisAlignment.center,
                                           children: <Widget>[
                                             ElevatedButton(
+                                                onPressed: () async {
+                                                  Navigator.pushNamed(
+                                                      context, "/PasswordChangeForm",
+                                                      arguments: {
+                                                        'userId':
+                                                            itemUsers[i].userId,
+                                                        'name':
+                                                            itemUsers[i].name!,
+                                                        'email':
+                                                            itemUsers[i].email!,
+                                                        'phone':
+                                                            itemUsers[i].phone!,
+                                                        'username': itemUsers[i]
+                                                            .username!,
+                                                        'password': itemUsers[i]
+                                                            .password!,
+                                                      });
+                                                },
+                                                child: const Icon(Icons.lock,
+                                                    color: Colors.white),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 8, 68, 16),
+                                                  shape: const CircleBorder(),
+                                                )),
+                                            ElevatedButton(
                                                 onPressed: () {
                                                   Navigator.pushNamed(
                                                       context, "/UsersInfoForm",
                                                       arguments: {
-                                                        'userId': itemUsers[i]
-                                                            .userId,
+                                                        'userId':
+                                                            itemUsers[i].userId,
                                                         'name':
                                                             itemUsers[i].name!,
                                                         'email':
-                                                            itemUsers[i]
-                                                                .email!,
-                                                        'phone': itemUsers[i]
-                                                            .phone!,
+                                                            itemUsers[i].email!,
+                                                        'phone':
+                                                            itemUsers[i].phone!,
                                                         'username': itemUsers[i]
                                                             .username!,
                                                         'password': itemUsers[i]
@@ -142,8 +166,9 @@ class _UsersInfoState extends State<UsersInfo> {
                                                     color: Color.fromARGB(
                                                         255, 255, 255, 255)),
                                                 style: ElevatedButton.styleFrom(
-                                                  backgroundColor: const Color.fromARGB(
-                                                      255, 27, 94, 238),
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 27, 94, 238),
                                                   shape: const CircleBorder(),
                                                 )),
                                             const Padding(
@@ -153,8 +178,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                             ElevatedButton(
                                                 onPressed: () async {
                                                   await ConectionMongodb
-                                                      .changeCollection(
-                                                          'user');
+                                                      .changeCollection('user');
                                                   await ConectionMongodb.delete(
                                                       itemUsers[i].userId);
                                                   _onLoading();
@@ -184,13 +208,8 @@ class _UsersInfoState extends State<UsersInfo> {
     itemUsers = [];
     List<Map<String, dynamic>> myUsers = await loadPreferences();
     myUsers.forEach((element) {
-      itemUsers.add(UsersDTO(
-          element['_id'],
-          element['name'],
-          element['email'],
-          element['phone'],
-          element['username'],
-          element['password']));
+      itemUsers.add(UsersDTO(element['_id'], element['name'], element['email'],
+          element['phone'], element['username'], element['password']));
     });
     if (mounted) setState(() {});
   }

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
 import 'package:mobile_project/src/pages/menu/admin_menu.dart';
@@ -10,7 +9,7 @@ import 'package:mobile_project/src/utils/Toast.dart';
 import 'package:mobile_project/src/utils/aes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String UsersInfoFormRoute = '/profiles_info_form';
+const String UsersInfoFormRoute = '/users_info_form';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -323,11 +322,9 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                         const SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
+                        itemUsers['password'] == '' ? TextFormField(
                           obscureText: true,
-                          initialValue: itemUsers['password'] != ''
-                              ? itemUsers['password']
-                              : '',
+                          initialValue: '',
                           decoration: const InputDecoration(
                               labelText: 'Contraseña',
                               enabledBorder: OutlineInputBorder(
@@ -353,15 +350,13 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                           onChanged: (value) {
                             setpassword(value);
                           },
-                        ),
+                        ) : const Center(),
                         const SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
+                        itemUsers['password'] == '' ? TextFormField(
                           obscureText: true,
-                          initialValue: itemUsers['password'] != ''
-                              ? itemUsers['password']
-                              : '',
+                          initialValue: '',
                           decoration: const InputDecoration(
                               labelText: 'Repita la contraseña',
                               enabledBorder: OutlineInputBorder(
@@ -387,7 +382,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                           onChanged: (value) {
                             setpasswordRepeat(value);
                           },
-                        ),
+                        ): const Center(),
                         const SizedBox(
                           height: 20,
                         ),
@@ -438,9 +433,9 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                 if (password == '') {
                                   password = itemUsers['password'];
                                 }
-                                if (name == itemUsers['name']) {
+                                if (username == itemUsers['username']) {
                                   await ConectionMongodb.changeCollection(
-                                      'tbl_profiles');
+                                      'user');
                                   await ConectionMongodb.update({
                                     "_id": itemUsers['userId']
                                   }, {
@@ -449,7 +444,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                     'username': username.trim(),
                                     'phone': phone.trim(),
                                     'email': email.trim(),
-                                    'password': password.trim(),
+                                    'password': itemUsers['password'],
                                   });
                                   SmartDialog.showToast(
                                       "Información editada con éxito");
@@ -458,7 +453,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                           username) ==
                                       false) {
                                     await ConectionMongodb.changeCollection(
-                                        'tbl_profiles');
+                                        'user');
                                     await ConectionMongodb.update({
                                       "_id": itemUsers['userId']
                                     }, {
@@ -467,7 +462,7 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
                                       'username': username.trim(),
                                       'phone': phone.trim(),
                                       'email': email.trim(),
-                                      'password': password.trim(),
+                                      'password': itemUsers['password'],
                                     });
                                     SmartDialog.showToast(
                                         "Información editada con éxito");

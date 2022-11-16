@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
+import 'package:mobile_project/src/pages/admin/forms/password_change_form.dart';
 import 'package:mobile_project/src/pages/admin/forms/places_info_form.dart';
 import 'package:mobile_project/src/pages/admin/forms/reservations_info_form.dart';
 import 'package:mobile_project/src/pages/admin/forms/profiles_info_form.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/ProfilesInfoForm': (context) => const ProfilesInfoForm(),
         '/ReservationsInfoForm': (context) => const ReservationsInfoForm(),
         '/UsersInfoForm': (context) => const UsersInfoForm(),
+        '/PasswordChangeForm': (context) => const PasswordChangeForm(),
         ////////////////////////////////////////////////////////
         '/informationPets': (context) => const InformationPets(),
         '/walkPets': (context) => const PetsTravel(),
