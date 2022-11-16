@@ -155,19 +155,12 @@ class _UsersInfoFormState extends State<UsersInfoForm> {
         },
         child: Scaffold(
           appBar: AppBar(
-              centerTitle: true, title: const Text("Registro de usuario")),
+              centerTitle: true, title: Text(itemUsers['userId'] == '' ? "Registro de usuario" : "Edición de usuario 📝")),
           body: ListView(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(2.0),
             children: [
               Column(
                 children: <Widget>[
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text("Ingrese la información del usuario",
-                        style: TextStyle(
-                          fontSize: 20,
-                        )),
-                  ),
                   Form(
                     key: _formKey,
                     child: Column(

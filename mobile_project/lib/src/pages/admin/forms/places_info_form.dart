@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        title: "Ret Registration",
+        title: "Sitios",
         home: PlacesInfoForm(),
         onGenerateRoute: Router.generateRoute,
         initialRoute: PlacesInfoFormRoute);
@@ -151,7 +151,7 @@ class _PlacesInfoFormState extends State<PlacesInfoForm> {
         },
         child: Scaffold(
           appBar:
-              AppBar(centerTitle: true, title: const Text("Registro de sitio")),
+              AppBar(centerTitle: true, title: Text( itemPlaces['placeId'] == '' ? "Registro de sitio": "Edición de sitio 📝")),
           body: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [

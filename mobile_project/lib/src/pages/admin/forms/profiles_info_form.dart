@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        title: "Registro de perfil",
+        title: "Perfil",
         home: ProfilesInfoForm(),
         onGenerateRoute: Router.generateRoute,
         initialRoute: ProfilesInfoFormRoute);
@@ -150,7 +150,7 @@ class _ProfilesInfoFormState extends State<ProfilesInfoForm> {
         },
         child: Scaffold(
           appBar: AppBar(
-              centerTitle: true, title: const Text("Registro de perfil")),
+              centerTitle: true, title: Text(itemUsers['userId'] == '' ? "Registro de perfil" : "Edición de perfil 📝")),
           body: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [

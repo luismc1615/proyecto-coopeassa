@@ -129,7 +129,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
         child: Scaffold(
           appBar: AppBar(
               centerTitle: true,
-              title: const Text("🔏")),
+              title: const Text("Cambio de contraseña 🔏")),
           body: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
@@ -137,7 +137,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                 children: <Widget>[
                    Align(
                     alignment: Alignment.center,
-                    child:  Text("Contraseña - " + itemUsers['username'],
+                    child:  Text("Usuario: " + itemUsers['username'],
                         style: const TextStyle(
                           fontSize: 20,
                         )),
