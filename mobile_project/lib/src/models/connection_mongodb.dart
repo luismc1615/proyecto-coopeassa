@@ -69,6 +69,16 @@ class ConectionMongodb {
     }
   }
 
+  static Future<bool> userNameExist(String? username) async {
+    await ConectionMongodb.changeCollection('user');
+    var d = await _userCollection?.findOne({'username': username});
+    if (d != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   static Future<bool> login(Map<String, Object> data) async {
     var d = await _userCollection?.findOne({'username': data['username']});
     if (d != null) {

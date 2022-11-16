@@ -10,7 +10,7 @@ class UsersInfo extends StatefulWidget {
 }
 
 class _UsersInfoState extends State<UsersInfo> {
-  late List<UsersDTO> itemsProfiles = <UsersDTO>[];
+  late List<UsersDTO> itemUsers = <UsersDTO>[];
 
   @override
   void initState() {
@@ -42,8 +42,14 @@ class _UsersInfoState extends State<UsersInfo> {
               backgroundColor: const Color.fromARGB(255, 17, 77, 27),
               child: const Icon(Icons.add),
               onPressed: () {
-                Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MenuScreen(2)));
+                Navigator.pushNamed(context, "/UsersInfoForm", arguments: {
+                  'userId': '',
+                  'name': '',
+                  'email': '',
+                  'phone': '',
+                  'username': '',
+                  'password': '',
+                });
               },
             ),
             body: SingleChildScrollView(
@@ -51,7 +57,7 @@ class _UsersInfoState extends State<UsersInfo> {
                 padding: const EdgeInsets.all(10),
                 child: Column(
                   children: [
-                    itemsProfiles == []
+                    itemUsers == []
                         ? const Center()
                         : ListView.builder(
                             physics:
@@ -69,7 +75,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       const SizedBox(height: 8),
                                       Container(
                                         padding: const EdgeInsets.all(5),
-                                        child: Text(itemsProfiles[i].username!,
+                                        child: Text(itemUsers[i].username!,
                                             style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
@@ -83,7 +89,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "📩  " + itemsProfiles[i].email!,
+                                            "📩  " + itemUsers[i].email!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -91,7 +97,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "📞" + itemsProfiles[i].phone!,
+                                            "📞" + itemUsers[i].phone!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -99,7 +105,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "📍 " + itemsProfiles[i].name!,
+                                            "📍 " + itemUsers[i].name!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -116,18 +122,18 @@ class _UsersInfoState extends State<UsersInfo> {
                                                   Navigator.pushNamed(
                                                       context, "/UsersInfoForm",
                                                       arguments: {
-                                                        'userId': itemsProfiles[i]
+                                                        'userId': itemUsers[i]
                                                             .userId,
                                                         'name':
-                                                            itemsProfiles[i].name!,
+                                                            itemUsers[i].name!,
                                                         'email':
-                                                            itemsProfiles[i]
+                                                            itemUsers[i]
                                                                 .email!,
-                                                        'phone': itemsProfiles[i]
+                                                        'phone': itemUsers[i]
                                                             .phone!,
-                                                        'username': itemsProfiles[i]
+                                                        'username': itemUsers[i]
                                                             .username!,
-                                                        'password': itemsProfiles[i]
+                                                        'password': itemUsers[i]
                                                             .password!,
                                                       });
                                                 },
@@ -148,9 +154,9 @@ class _UsersInfoState extends State<UsersInfo> {
                                                 onPressed: () async {
                                                   await ConectionMongodb
                                                       .changeCollection(
-                                                          'tbl_user');
+                                                          'user');
                                                   await ConectionMongodb.delete(
-                                                      itemsProfiles[i].userId);
+                                                      itemUsers[i].userId);
                                                   _onLoading();
                                                 },
                                                 child: const Icon(Icons.delete,
@@ -166,7 +172,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                   ),
                                 ))),
                             shrinkWrap: true,
-                            itemCount: itemsProfiles.length,
+                            itemCount: itemUsers.length,
                           ),
                   ],
                 ),
@@ -175,10 +181,10 @@ class _UsersInfoState extends State<UsersInfo> {
   }
 
   void _onLoading() async {
-    itemsProfiles = [];
+    itemUsers = [];
     List<Map<String, dynamic>> myUsers = await loadPreferences();
     myUsers.forEach((element) {
-      itemsProfiles.add(UsersDTO(
+      itemUsers.add(UsersDTO(
           element['_id'],
           element['name'],
           element['email'],
