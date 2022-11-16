@@ -103,10 +103,11 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                   ),
                   child: const Text('OK'),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                    FocusScope.of(context)
-                        .unfocus(); // Unfocus the last selected input field
-                    _formKey.currentState?.reset(); // Empty the form fields
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MenuScreen(4))); // Empty the form fields
                   },
                 )
               ],
@@ -128,16 +129,15 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
         },
         child: Scaffold(
           appBar: AppBar(
-              centerTitle: true,
-              title: const Text("Cambio de contraseña 🔏")),
+              centerTitle: true, title: const Text("Cambio de contraseña 🔏")),
           body: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
               Column(
                 children: <Widget>[
-                   Align(
+                  Align(
                     alignment: Alignment.center,
-                    child:  Text("Usuario: " + itemUsers['username'],
+                    child: Text("Usuario: " + itemUsers['username'],
                         style: const TextStyle(
                           fontSize: 20,
                         )),

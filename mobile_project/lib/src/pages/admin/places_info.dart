@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/models/placesDTO.dart';
 import 'package:mobile_project/src/pages/admin/forms/places_gallery_form.dart';
@@ -80,7 +81,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                               backgroundImage: NetworkImage(
                                                   itemsPlaces[i].profile_img!),
                                             )
-                                            /* Image.network(
+                                          /* Image.network(
                                               itemsPlaces[i].profile_img!,
                                               fit: BoxFit
                                                   .scaleDown, // Fixes border issues
@@ -150,8 +151,9 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                                 child: const Icon(Icons.image,
                                                     color: Colors.white),
                                                 style: ElevatedButton.styleFrom(
-                                                  backgroundColor: const Color.fromARGB(
-                                                      255, 8, 68, 16),
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 8, 68, 16),
                                                   shape: const CircleBorder(),
                                                 )),
                                             const Padding(
@@ -187,8 +189,9 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                                     color: Color.fromARGB(
                                                         255, 255, 255, 255)),
                                                 style: ElevatedButton.styleFrom(
-                                                  backgroundColor: const Color.fromARGB(
-                                                      255, 27, 94, 238),
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 27, 94, 238),
                                                   shape: const CircleBorder(),
                                                 )),
                                             const Padding(
@@ -197,12 +200,88 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                             ),
                                             ElevatedButton(
                                                 onPressed: () async {
-                                                  await ConectionMongodb
-                                                      .changeCollection(
-                                                          'tbl_places');
-                                                  await ConectionMongodb.delete(
-                                                      itemsPlaces[i].placeId);
-                                                  _onLoading();
+                                                  SmartDialog.show(
+                                                      builder: (context) {
+                                                    return Container(
+                                                      height: 120,
+                                                      width: 300,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Column(
+                                                          children: <Widget>[
+                                                            Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(20),
+                                                              child: const Text(
+                                                                  "¿Desea eliminar el sitio?",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                  )),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(5),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  ElevatedButton(
+                                                                      style: TextButton.styleFrom(
+                                                                          backgroundColor: const Color.fromRGBO(
+                                                                              25,
+                                                                              150,
+                                                                              125,
+                                                                              1)),
+                                                                      onPressed:
+                                                                          () async {
+                                                                        await ConectionMongodb.changeCollection(
+                                                                            'tbl_places');
+                                                                        await ConectionMongodb
+                                                                            .delete(
+                                                                          itemsPlaces[i]
+                                                                              .placeId,
+                                                                        );
+                                                                        _onLoading();
+                                                                        SmartDialog
+                                                                            .dismiss();
+                                                                      },
+                                                                      child: const Text(
+                                                                          "Sí")),
+                                                                  const SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  ElevatedButton(
+                                                                      style: TextButton.styleFrom(
+                                                                          backgroundColor: const Color.fromARGB(
+                                                                              255,
+                                                                              252,
+                                                                              1,
+                                                                              1)),
+                                                                      onPressed:
+                                                                          () {
+                                                                        SmartDialog
+                                                                            .dismiss();
+                                                                      },
+                                                                      child: const Text(
+                                                                          "No")),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ]),
+                                                    );
+                                                  });
                                                 },
                                                 child: const Icon(Icons.delete,
                                                     color: Colors.white),

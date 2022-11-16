@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/models/profilesDTO.dart';
 import 'package:mobile_project/src/pages/menu/client_menu.dart';
@@ -88,7 +89,8 @@ class _ProfilesInfoState extends State<ProfilesInfo> {
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(5),
-                                        child: Text(itemsProfiles[i].nacionality!,
+                                        child: Text(
+                                            itemsProfiles[i].nacionality!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -126,22 +128,26 @@ class _ProfilesInfoState extends State<ProfilesInfo> {
                                           children: <Widget>[
                                             ElevatedButton(
                                                 onPressed: () {
-                                                  Navigator.pushNamed(
-                                                      context, "/ProfilesInfoForm",
+                                                  Navigator.pushNamed(context,
+                                                      "/ProfilesInfoForm",
                                                       arguments: {
-                                                        'userId': itemsProfiles[i]
-                                                            .userId,
-                                                        'name':
-                                                            itemsProfiles[i].name!,
+                                                        'userId':
+                                                            itemsProfiles[i]
+                                                                .userId,
+                                                        'name': itemsProfiles[i]
+                                                            .name!,
                                                         'nacionality':
                                                             itemsProfiles[i]
                                                                 .nacionality!,
-                                                        'phone': itemsProfiles[i]
-                                                            .phone!,
-                                                        'email': itemsProfiles[i]
-                                                            .email!,
-                                                        'address': itemsProfiles[i]
-                                                            .address!,
+                                                        'phone':
+                                                            itemsProfiles[i]
+                                                                .phone!,
+                                                        'email':
+                                                            itemsProfiles[i]
+                                                                .email!,
+                                                        'address':
+                                                            itemsProfiles[i]
+                                                                .address!,
                                                       });
                                                 },
                                                 child: const Icon(
@@ -159,12 +165,88 @@ class _ProfilesInfoState extends State<ProfilesInfo> {
                                             ),
                                             ElevatedButton(
                                                 onPressed: () async {
-                                                  await ConectionMongodb
-                                                      .changeCollection(
-                                                          'tbl_profiles');
-                                                  await ConectionMongodb.delete(
-                                                      itemsProfiles[i].userId);
-                                                  _onLoading();
+                                                  SmartDialog.show(
+                                                      builder: (context) {
+                                                    return Container(
+                                                      height: 120,
+                                                      width: 300,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Column(
+                                                          children: <Widget>[
+                                                            Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(20),
+                                                              child: const Text(
+                                                                  "¿Desea eliminar el perfil?",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                  )),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(5),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  ElevatedButton(
+                                                                      style: TextButton.styleFrom(
+                                                                          backgroundColor: const Color.fromRGBO(
+                                                                              25,
+                                                                              150,
+                                                                              125,
+                                                                              1)),
+                                                                      onPressed:
+                                                                          () async {
+                                                                        await ConectionMongodb.changeCollection(
+                                                                            'tbl_profiles');
+                                                                        await ConectionMongodb
+                                                                            .delete(
+                                                                          itemsProfiles[i]
+                                                                              .userId,
+                                                                        );
+                                                                        _onLoading();
+                                                                        SmartDialog
+                                                                            .dismiss();
+                                                                      },
+                                                                      child: const Text(
+                                                                          "Sí")),
+                                                                  const SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  ElevatedButton(
+                                                                      style: TextButton.styleFrom(
+                                                                          backgroundColor: const Color.fromARGB(
+                                                                              255,
+                                                                              252,
+                                                                              1,
+                                                                              1)),
+                                                                      onPressed:
+                                                                          () {
+                                                                        SmartDialog
+                                                                            .dismiss();
+                                                                      },
+                                                                      child: const Text(
+                                                                          "No")),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ]),
+                                                    );
+                                                  });
                                                 },
                                                 child: const Icon(Icons.delete,
                                                     color: Colors.white),

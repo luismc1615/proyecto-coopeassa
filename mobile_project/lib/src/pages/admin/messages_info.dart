@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/models/messagesDTO.dart';
 import 'package:mobile_project/src/pages/menu/client_menu.dart';
@@ -161,13 +162,88 @@ class _MessagesState extends State<Messages> {
                                             ),
                                             ElevatedButton(
                                                 onPressed: () async {
-                                                  await ConectionMongodb
-                                                      .changeCollection(
-                                                          'tbl_messages');
-                                                  await ConectionMongodb.delete(
-                                                      itemMessages[i]
-                                                          .messageId);
-                                                  _onLoading();
+                                                  SmartDialog.show(
+                                                      builder: (context) {
+                                                    return Container(
+                                                      height: 120,
+                                                      width: 300,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Column(
+                                                          children: <Widget>[
+                                                            Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(20),
+                                                              child: const Text(
+                                                                  "¿Desea eliminar el mensaje?",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                  )),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(5),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: <
+                                                                    Widget>[
+                                                                  ElevatedButton(
+                                                                      style: TextButton.styleFrom(
+                                                                          backgroundColor: const Color.fromRGBO(
+                                                                              25,
+                                                                              150,
+                                                                              125,
+                                                                              1)),
+                                                                      onPressed:
+                                                                          () async {
+                                                                        await ConectionMongodb.changeCollection(
+                                                                            'tbl_messages');
+                                                                        await ConectionMongodb
+                                                                            .delete(
+                                                                          itemMessages[i]
+                                                                              .messageId,
+                                                                        );
+                                                                        _onLoading();
+                                                                        SmartDialog
+                                                                            .dismiss();
+                                                                      },
+                                                                      child: const Text(
+                                                                          "Sí")),
+                                                                  const SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  ElevatedButton(
+                                                                      style: TextButton.styleFrom(
+                                                                          backgroundColor: const Color.fromARGB(
+                                                                              255,
+                                                                              252,
+                                                                              1,
+                                                                              1)),
+                                                                      onPressed:
+                                                                          () {
+                                                                        SmartDialog
+                                                                            .dismiss();
+                                                                      },
+                                                                      child: const Text(
+                                                                          "No")),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ]),
+                                                    );
+                                                  });
                                                 },
                                                 child: const Icon(Icons.delete,
                                                     color: Colors.white),
