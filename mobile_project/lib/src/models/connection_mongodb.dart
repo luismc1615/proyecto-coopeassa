@@ -39,6 +39,24 @@ class ConectionMongodb {
     await _userCollection!.update(id, data);
   }
 
+  static Future<bool> login(Map<String, Object> data) async {
+    var d = await _userCollection?.findOne({'username': data['username']});
+    if (d != null) {
+      if (Aes.mtdecrypt(d['password']) == data['password']) {
+        SharedPreferences _prefs = await SharedPreferences.getInstance();
+        _prefs.setString('id', d['_id'].toString());
+        print(d);
+        return true;
+      } else {
+        ToastType.error("Contraseña incorrecta");
+        return false;
+      }
+    } else {
+      ToastType.error("Usuario no encontrado");
+      return false;
+    }
+  }
+
   static Future<bool> userExist(Map<String, Object> data) async {
     await ConectionMongodb.changeCollection('user');
     var d = await _userCollection?.findOne({'username': data['username']});
@@ -79,24 +97,6 @@ class ConectionMongodb {
     }
   }
 
-  static Future<bool> login(Map<String, Object> data) async {
-    var d = await _userCollection?.findOne({'username': data['username']});
-    if (d != null) {
-      if (Aes.mtdecrypt(d['password']) == data['password']) {
-        SharedPreferences _prefs = await SharedPreferences.getInstance();
-        _prefs.setString('id', d['_id'].toString());
-        print(d);
-        return true;
-      } else {
-        ToastType.error("Contraseña incorrecta");
-        return false;
-      }
-    } else {
-      ToastType.error("Usuario no encontrado");
-      return false;
-    }
-  }
-
   static Future<List<Map<String, dynamic>>?> getPlaces() async {
     await ConectionMongodb.changeCollection('tbl_places');
     final places = await _userCollection?.find().toList();
@@ -132,48 +132,5 @@ class ConectionMongodb {
     await ConectionMongodb.changeCollection('tbl_messages');
     final users = await _userCollection?.find().toList();
     return users;
-  }
-
-  ///////////////////////////////////////////////////////////////////////////
-
-  static Future<List<Map<String, dynamic>>?> getPets(String? userId) async {
-    await ConectionMongodb.changeCollection('pets');
-    final d = await _userCollection?.find({'user_id': userId}).toList();
-    return d;
-  }
-
-  static Future<List<Map<String, dynamic>>?> getPetsWalk(String? userId) async {
-    await ConectionMongodb.changeCollection('petwalk');
-    final d = await _userCollection?.find({'user_id': userId}).toList();
-    return d;
-  }
-
-  static Future<List<Map<String, dynamic>>?> getPetsCuriosity(
-      String? userId) async {
-    await ConectionMongodb.changeCollection('curiositiespet');
-    final d = await _userCollection?.find({'user_id': userId}).toList();
-    return d;
-  }
-
-  static Future<List<Map<String, dynamic>>?> getImagesPetWalks(
-      String? travelId) async {
-    await ConectionMongodb.changeCollection('photostravel');
-    final d = await _userCollection?.find({'travel_id': travelId}).toList();
-    return d;
-  }
-
-  static Future<List<Map<String, dynamic>>?> getImagesPetCuriosity(
-      String? curiosityId) async {
-    await ConectionMongodb.changeCollection('photoscuriosity');
-    final d =
-        await _userCollection?.find({'curiosity_id': curiosityId}).toList();
-    return d;
-  }
-
-  static Future<List<Map<String, dynamic>>?> getRelationshipsPets(
-      String? petId) async {
-    await ConectionMongodb.changeCollection('relationshipspets');
-    final d = await _userCollection?.find({'pet_id': petId}).toList();
-    return d;
   }
 }

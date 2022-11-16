@@ -6,10 +6,6 @@ import 'package:mobile_project/src/pages/admin/forms/places_info_form.dart';
 import 'package:mobile_project/src/pages/admin/forms/reservations_info_form.dart';
 import 'package:mobile_project/src/pages/admin/forms/profiles_info_form.dart';
 import 'package:mobile_project/src/pages/admin/forms/users_info_form.dart';
-import 'package:mobile_project/src/pages/forms/information_pets.dart';
-import 'package:mobile_project/src/pages/forms/pet_curiosities.dart';
-import 'package:mobile_project/src/pages/forms/pet_relationship.dart';
-import 'package:mobile_project/src/pages/forms/pet_walk.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_project/src/pages/menu/client_menu.dart';
 
@@ -35,11 +31,6 @@ class MyApp extends StatelessWidget {
         '/ReservationsInfoForm': (context) => const ReservationsInfoForm(),
         '/UsersInfoForm': (context) => const UsersInfoForm(),
         '/PasswordChangeForm': (context) => const PasswordChangeForm(),
-        ////////////////////////////////////////////////////////
-        '/informationPets': (context) => const InformationPets(),
-        '/walkPets': (context) => const PetsTravel(),
-        '/PetCuriosities': (context) => const PetCuriosities(),
-        '/relationshipsPetForm': (context) => const RelationshipsPetForm(),
       },
     );
   }

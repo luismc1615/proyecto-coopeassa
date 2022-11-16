@@ -2,7 +2,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/pages/client/contact_form.dart';
 import 'package:mobile_project/src/pages/client/places_info.dart';
-import 'package:mobile_project/src/pages/forms/about.dart';
 import 'package:mobile_project/src/pages/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +19,6 @@ class _MenuScreenState extends State<MenuScreen> {
     PlacesInfo(),
     const ContactForm(),
     LoginScreen(),
-    const About()
   ];
 
   final items = <Widget>[
