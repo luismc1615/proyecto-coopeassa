@@ -3,7 +3,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/pages/admin/forms/places_info_form.dart';
 import 'package:mobile_project/src/pages/admin/forms/reservations_info_form.dart';
-import 'package:mobile_project/src/pages/admin/forms/users_info_form.dart';
+import 'package:mobile_project/src/pages/admin/forms/profiles_info_form.dart';
 import 'package:mobile_project/src/pages/forms/information_pets.dart';
 import 'package:mobile_project/src/pages/forms/pet_curiosities.dart';
 import 'package:mobile_project/src/pages/forms/pet_relationship.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => MenuScreen(0),
         '/PlacesInfoForm': (context) => const PlacesInfoForm(),
-        '/UsersInfoForm': (context) => const UsersInfoForm(),
+        '/ProfilesInfoForm': (context) => const ProfilesInfoForm(),
         '/ReservationsInfoForm': (context) => const ReservationsInfoForm(),
         ////////////////////////////////////////////////////////
         '/informationPets': (context) => const InformationPets(),

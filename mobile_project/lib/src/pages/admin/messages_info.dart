@@ -129,7 +129,7 @@ class _MessagesState extends State<Messages> {
                                             ElevatedButton(
                                                 onPressed: () {
                                                   Navigator.pushNamed(
-                                                      context, "/UsersInfoForm",
+                                                      context, "/ProfilesInfoForm",
                                                       arguments: {
                                                         'userId': '',
                                                         'name': itemMessages[i]

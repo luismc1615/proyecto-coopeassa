@@ -7,16 +7,15 @@ import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
 import 'package:mobile_project/src/pages/menu/admin_menu.dart';
 import 'package:mobile_project/src/utils/Toast.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String UsersInfoFormRoute = '/user_info_form';
+const String ProfilesInfoFormRoute = '/profiles_info_form';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case UsersInfoFormRoute:
-        return MaterialPageRoute(builder: (_) => const UsersInfoForm());
+      case ProfilesInfoFormRoute:
+        return MaterialPageRoute(builder: (_) => const ProfilesInfoForm());
       default:
         return MaterialPageRoute(
             builder: (_) => const Scaffold(
@@ -27,7 +26,7 @@ class Router {
 }
 
 class MyApp extends StatefulWidget {
-  static const String ROUTE = "/UsersInfoForm";
+  static const String ROUTE = "/ProfilesInfoForm";
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -39,19 +38,19 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return const MaterialApp(
         title: "Registro de perfil",
-        home: UsersInfoForm(),
+        home: ProfilesInfoForm(),
         onGenerateRoute: Router.generateRoute,
-        initialRoute: UsersInfoFormRoute);
+        initialRoute: ProfilesInfoFormRoute);
   }
 }
 
-class UsersInfoForm extends StatefulWidget {
-  const UsersInfoForm({Key? key}) : super(key: key);
+class ProfilesInfoForm extends StatefulWidget {
+  const ProfilesInfoForm({Key? key}) : super(key: key);
   @override
-  _UsersInfoFormState createState() => _UsersInfoFormState();
+  _ProfilesInfoFormState createState() => _ProfilesInfoFormState();
 }
 
-class _UsersInfoFormState extends State<UsersInfoForm> {
+class _ProfilesInfoFormState extends State<ProfilesInfoForm> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   String name = '';
   String nacionality = '';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:mobile_project/src/models/placesDTO.dart';
-import 'package:mobile_project/src/models/usersDTO.dart';
+import 'package:mobile_project/src/models/profilesDTO.dart';
 import 'package:mobile_project/src/notifications/push_notification_manager.dart';
 import 'package:mobile_project/src/pages/menu/admin_menu.dart';
 import 'package:mobile_project/src/utils/Toast.dart';
@@ -61,7 +61,7 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
   int personQuantiti = 0;
 
   late List<PlacesDTO> itemsPlaces = <PlacesDTO>[];
-  late List<UsersDTO> itemsProfiles = <UsersDTO>[];
+  late List<ProfilesDTO> itemsProfiles = <ProfilesDTO>[];
 
   @override
   void initState() {
@@ -315,7 +315,7 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                   DropdownButton(
                     hint: Text(profile),
                     items: itemsProfiles
-                        .map<DropdownMenuItem<String>>((UsersDTO pro) {
+                        .map<DropdownMenuItem<String>>((ProfilesDTO pro) {
                       return DropdownMenuItem<String>(
                         value: pro.name,
                         child: Text(pro.name!),
@@ -394,7 +394,7 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
     itemsProfiles = [];
     List<Map<String, dynamic>> myProfiles = await loadProfiles();
     myProfiles.forEach((element) {
-      itemsProfiles.add(UsersDTO(
+      itemsProfiles.add(ProfilesDTO(
         element['_id'],
         element['name'],
         element['nacionality'],

@@ -8,17 +8,17 @@ class UsersDTO {
   String? name;
 
   @override
-  String? nacionality;
+  String? email;
 
   @override
   String? phone;
 
   @override
-  String? email;
+  String? username;
 
   @override
-  String? address;
+  String? password;
 
-  UsersDTO(this.userId, this.name, this.nacionality, this.phone, this.email,
-      this.address);
+  UsersDTO(this.userId, this.name, this.email, this.phone, this.username,
+      this.password);
 }

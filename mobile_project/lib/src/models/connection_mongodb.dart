@@ -102,6 +102,12 @@ class ConectionMongodb {
 
   static Future<List<Map<String, dynamic>>?> getProfiles() async {
     await ConectionMongodb.changeCollection('tbl_profiles');
+    final profiles = await _userCollection?.find().toList();
+    return profiles;
+  }
+
+  static Future<List<Map<String, dynamic>>?> getUsers() async {
+    await ConectionMongodb.changeCollection('user');
     final users = await _userCollection?.find().toList();
     return users;
   }

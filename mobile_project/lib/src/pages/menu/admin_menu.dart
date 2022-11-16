@@ -1,17 +1,12 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_project/src/pages/admin/messages_info.dart';
+import 'package:mobile_project/src/pages/admin/places_info.dart';
+import 'package:mobile_project/src/pages/admin/profiles_info.dart';
 import 'package:mobile_project/src/pages/admin/reservations_info.dart';
-import 'package:mobile_project/src/pages/forms/about.dart';
+import 'package:mobile_project/src/pages/admin/messages_info.dart';
+import 'package:mobile_project/src/pages/admin/users_info.dart';
 import 'package:mobile_project/src/pages/login/login.dart';
-import 'package:mobile_project/src/pages/principal_pages/curiosities_pets.dart';
-import 'package:mobile_project/src/pages/principal_pages/info_pets.dart';
-import 'package:mobile_project/src/pages/principal_pages/select_pet_relationship.dart';
-import 'package:mobile_project/src/pages/principal_pages/travel_pets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../admin/places_info.dart';
-import '../admin/users_info.dart';
 
 class MenuScreen extends StatefulWidget {
   static const String ROUTE = "/menu";
@@ -26,10 +21,10 @@ class _MenuScreenState extends State<MenuScreen> {
   final List<Widget> _pages = [
     //InfoPets(),
     PlacesInfo(),
-    UsersInfo(),
+    ProfilesInfo(),
     ReservationsInfo(),
     Messages(),
-    const About()
+    UsersInfo()
   ];
 
   final items = <Widget>[

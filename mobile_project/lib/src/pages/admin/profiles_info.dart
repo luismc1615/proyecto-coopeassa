@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
-import 'package:mobile_project/src/models/usersDTO.dart';
+import 'package:mobile_project/src/models/profilesDTO.dart';
 import 'package:mobile_project/src/pages/menu/client_menu.dart';
 
-class UsersInfo extends StatefulWidget {
+class ProfilesInfo extends StatefulWidget {
   // ignore: constant_identifier_names
   @override
-  _UsersInfoState createState() => _UsersInfoState();
+  _ProfilesInfoState createState() => _ProfilesInfoState();
 }
 
-class _UsersInfoState extends State<UsersInfo> {
-  late List<UsersDTO> itemsProfiles = <UsersDTO>[];
+class _ProfilesInfoState extends State<ProfilesInfo> {
+  late List<ProfilesDTO> itemsProfiles = <ProfilesDTO>[];
 
   @override
   void initState() {
@@ -20,7 +20,7 @@ class _UsersInfoState extends State<UsersInfo> {
   }
 
   static loadPreferences() async {
-    var users = await ConectionMongodb.getUsers();
+    var users = await ConectionMongodb.getProfiles();
     return users;
   }
 
@@ -35,15 +35,21 @@ class _UsersInfoState extends State<UsersInfo> {
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: const Text("Información de usuarios"),
+              title: const Text("Información de perfiles"),
               backgroundColor: const Color.fromRGBO(25, 150, 125, 1),
             ),
             floatingActionButton: FloatingActionButton(
               backgroundColor: const Color.fromARGB(255, 17, 77, 27),
               child: const Icon(Icons.add),
               onPressed: () {
-                Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MenuScreen(2)));
+                Navigator.pushNamed(context, "/ProfilesInfoForm", arguments: {
+                  'userId': '',
+                  'name': '',
+                  'nacionality': '',
+                  'phone': '',
+                  'email': '',
+                  'address': '',
+                });
               },
             ),
             body: SingleChildScrollView(
@@ -69,7 +75,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       const SizedBox(height: 8),
                                       Container(
                                         padding: const EdgeInsets.all(5),
-                                        child: Text(itemsProfiles[i].username!,
+                                        child: Text(itemsProfiles[i].name!,
                                             style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
@@ -82,8 +88,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                            "📩  " + itemsProfiles[i].email!,
+                                        child: Text(itemsProfiles[i].nacionality!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -91,7 +96,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "📞" + itemsProfiles[i].phone!,
+                                            "📞 " + itemsProfiles[i].phone!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -99,7 +104,15 @@ class _UsersInfoState extends State<UsersInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                            "📍 " + itemsProfiles[i].name!,
+                                            "📩 " + itemsProfiles[i].email!,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Text(
+                                            "📍 " + itemsProfiles[i].address!,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold)),
@@ -114,21 +127,21 @@ class _UsersInfoState extends State<UsersInfo> {
                                             ElevatedButton(
                                                 onPressed: () {
                                                   Navigator.pushNamed(
-                                                      context, "/UsersInfoForm",
+                                                      context, "/ProfilesInfoForm",
                                                       arguments: {
                                                         'userId': itemsProfiles[i]
                                                             .userId,
                                                         'name':
                                                             itemsProfiles[i].name!,
-                                                        'email':
+                                                        'nacionality':
                                                             itemsProfiles[i]
-                                                                .email!,
+                                                                .nacionality!,
                                                         'phone': itemsProfiles[i]
                                                             .phone!,
-                                                        'username': itemsProfiles[i]
-                                                            .username!,
-                                                        'password': itemsProfiles[i]
-                                                            .password!,
+                                                        'email': itemsProfiles[i]
+                                                            .email!,
+                                                        'address': itemsProfiles[i]
+                                                            .address!,
                                                       });
                                                 },
                                                 child: const Icon(
@@ -136,7 +149,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                                     color: Color.fromARGB(
                                                         255, 255, 255, 255)),
                                                 style: ElevatedButton.styleFrom(
-                                                  backgroundColor: const Color.fromARGB(
+                                                  primary: const Color.fromARGB(
                                                       255, 27, 94, 238),
                                                   shape: const CircleBorder(),
                                                 )),
@@ -148,7 +161,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                                 onPressed: () async {
                                                   await ConectionMongodb
                                                       .changeCollection(
-                                                          'tbl_user');
+                                                          'tbl_profiles');
                                                   await ConectionMongodb.delete(
                                                       itemsProfiles[i].userId);
                                                   _onLoading();
@@ -156,7 +169,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                                 child: const Icon(Icons.delete,
                                                     color: Colors.white),
                                                 style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.red,
+                                                  primary: Colors.red,
                                                   shape: const CircleBorder(),
                                                 ))
                                           ],
@@ -178,13 +191,13 @@ class _UsersInfoState extends State<UsersInfo> {
     itemsProfiles = [];
     List<Map<String, dynamic>> myUsers = await loadPreferences();
     myUsers.forEach((element) {
-      itemsProfiles.add(UsersDTO(
+      itemsProfiles.add(ProfilesDTO(
           element['_id'],
           element['name'],
-          element['email'],
+          element['nacionality'],
           element['phone'],
-          element['username'],
-          element['password']));
+          element['email'],
+          element['address']));
     });
     if (mounted) setState(() {});
   }
