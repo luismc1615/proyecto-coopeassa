@@ -20,8 +20,19 @@ class ReservationsDTO {
   String? profile;
 
   @override
-  String? date;
+  String? entryDate;
 
-  ReservationsDTO(this.reservationId, this.personQuantiti, this.checkInTime,
-      this.checkOutTime, this.place, this.profile, this.date);
+  @override
+  String? departureDate;
+
+  ReservationsDTO(
+      this.reservationId,
+      this.personQuantiti,
+      this.checkInTime,
+      this.checkOutTime,
+      this.place,
+      this.profile,
+      this.entryDate,
+      this.departureDate,
+      );
 }

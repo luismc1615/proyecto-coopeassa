@@ -50,7 +50,8 @@ class ReservationsInfoForm extends StatefulWidget {
 
 class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  DateTime date = DateTime.now();
+  DateTime entryDate = DateTime.now();
+  DateTime departureDate = DateTime.now();
   TextEditingController Sduration = TextEditingController();
   TextEditingController Eduration = TextEditingController();
   var duration = '';
@@ -94,8 +95,13 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
     PushNotificationsManager().dispose();
   }
 
-  void setDate(DateTime dateInfo) {
-    date = dateInfo;
+  void setEntryDate(DateTime entryDateInfo) {
+    entryDate = entryDateInfo;
+    setState(() {});
+  }
+
+  void setDepartureDate(DateTime departureDateInfo) {
+    departureDate = departureDateInfo;
     setState(() {});
   }
 
@@ -185,10 +191,21 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                     height: 20,
                   ),
                   _FormDatePicker(
-                    date: date,
+                    date: entryDate,
                     onChanged: (value) {
                       setState(() {
-                        date = value;
+                        entryDate = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _FormDatePicker2(
+                    date: departureDate,
+                    onChanged: (value) {
+                      setState(() {
+                        departureDate = value;
                       });
                     },
                   ),
@@ -371,7 +388,8 @@ class _ReservationsInfoFormState extends State<ReservationsInfoForm> {
                                 intl.DateFormat('HH:mm').format(checkOutTime),
                             'place': place,
                             'profile': profile,
-                            'date': intl.DateFormat.yMd().format(date),
+                            'departureDate': intl.DateFormat.yMd().format(departureDate),
+                            'entryDate': intl.DateFormat.yMd().format(entryDate),
                           });
                           await PushNotificationsManager.sendNotification2(
                             "Reserva registrada",
@@ -439,6 +457,19 @@ class _FormDatePicker extends StatefulWidget {
   _FormDatePickerState createState() => _FormDatePickerState();
 }
 
+class _FormDatePicker2 extends StatefulWidget {
+  final DateTime date;
+  final ValueChanged<DateTime> onChanged;
+
+  const _FormDatePicker2({
+    required this.date,
+    required this.onChanged,
+  });
+
+  @override
+  _FormDatePicker2State createState() => _FormDatePicker2State();
+}
+
 // ignore: non_constant_identifier_names
 int Difference(DateTime from, DateTime to) {
   from = DateTime(from.year, from.month, from.day);
@@ -458,7 +489,7 @@ class _FormDatePickerState extends State<_FormDatePicker> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              'Date',
+              'Fecha de entrada',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Text(
@@ -489,3 +520,48 @@ class _FormDatePickerState extends State<_FormDatePicker> {
     );
   }
 }
+
+class _FormDatePicker2State extends State<_FormDatePicker2> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              'Fecha de salida',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            Text(
+              intl.DateFormat.yMd().format(widget.date),
+              style: Theme.of(context).textTheme.headline5,
+            ),
+          ],
+        ),
+        TextButton(
+          child: const Text('Edit'),
+          onPressed: () async {
+            var newDate = await showDatePicker(
+              context: context,
+              initialDate: widget.date,
+              firstDate: DateTime(1900),
+              lastDate: DateTime(2100),
+            );
+
+            // Don't change the date if the date picker returns null.
+            if (newDate == null) {
+              return;
+            }
+
+            widget.onChanged(newDate);
+          },
+        )
+      ],
+    );
+  }
+}
+

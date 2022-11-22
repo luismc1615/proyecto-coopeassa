@@ -43,7 +43,8 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
               'checkOutTime': '',
               'place': '',
               'profile': '',
-              'date': '',
+              'entryDate': '',
+              'departureDate': '',
             });
           },
         ),
@@ -105,7 +106,15 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(
-                                        "Fecha: " + itemsReservations[i].date!,
+                                        "Fecha de entrada: " + itemsReservations[i].entryDate!,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                        "Fecha de salida: " + itemsReservations[i].departureDate!,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold)),
@@ -259,7 +268,8 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
           element['checkOutTime'],
           element['place'],
           element['profile'],
-          element['date']));
+          element['entryDate'],
+          element['departureDate']));
     });
     if (mounted) setState(() {});
   }
