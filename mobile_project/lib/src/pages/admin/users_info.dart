@@ -223,7 +223,7 @@ class _UsersInfoState extends State<UsersInfo> {
                                                                       onPressed:
                                                                           () async {
                                                                         await ConectionMongodb.changeCollection(
-                                                                            'tbl_user');
+                                                                            'user');
                                                                         await ConectionMongodb
                                                                             .delete(
                                                                           itemUsers[i]
