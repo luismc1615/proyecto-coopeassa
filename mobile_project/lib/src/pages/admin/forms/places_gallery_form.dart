@@ -78,9 +78,6 @@ class _PlacesGalleryFormState extends State<PlacesGalleryForm> {
                     textAlign: TextAlign.center),
                 Column(
                   children: <Widget>[
-                    const SizedBox(
-                      height: 20,
-                    ),
                     Form(
                       key: _formKey,
                       child: Column(

@@ -51,26 +51,28 @@ class _MessagesState extends State<Messages> {
                                 const NeverScrollableScrollPhysics(), //Evitará a que trate de Scrolear
                             scrollDirection: Axis.vertical,
                             itemBuilder: ((c, i) => Card(
-                                color: const Color.fromARGB(255, 83, 161, 146),
+                                color: const Color.fromARGB(255, 243, 241, 241),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30)),
+                                    borderRadius: BorderRadius.circular(3)),
                                 margin: const EdgeInsets.all(15),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
+                                  child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      left: BorderSide(
+                                          color:  Color.fromARGB(255, 83, 161, 146), width: 3),
+                                    ),
+                                  ),
                                   child: Column(
                                     children: <Widget>[
                                       const SizedBox(height: 8),
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(itemMessages[i].name!,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
-                                              foreground: Paint()
-                                                ..style = PaintingStyle.stroke
-                                                ..strokeWidth = 2
-                                                ..color = const Color.fromARGB(
-                                                    255, 0, 0, 0),
+                                              color: Color.fromARGB(255, 0, 0, 0)
                                             )),
                                       ),
                                       Container(
@@ -78,7 +80,7 @@ class _MessagesState extends State<Messages> {
                                         child: Text(
                                             itemMessages[i].nacionality!,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(255, 0, 0, 0),
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Container(
@@ -86,7 +88,7 @@ class _MessagesState extends State<Messages> {
                                         child: Text(
                                             "📞 " + itemMessages[i].phone!,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(255, 0, 0, 0),
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Container(
@@ -94,7 +96,7 @@ class _MessagesState extends State<Messages> {
                                         child: Text(
                                             "📩 " + itemMessages[i].email!,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(255, 0, 0, 0),
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Container(
@@ -102,7 +104,7 @@ class _MessagesState extends State<Messages> {
                                         child: Text(
                                             "📍 " + itemMessages[i].address!,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(255, 0, 0, 0),
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       const Divider(
@@ -117,7 +119,7 @@ class _MessagesState extends State<Messages> {
                                         child: Text(
                                             itemMessages[i].description!,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(255, 0, 0, 0),
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       const SizedBox(height: 5),
@@ -129,8 +131,8 @@ class _MessagesState extends State<Messages> {
                                           children: <Widget>[
                                             ElevatedButton(
                                                 onPressed: () {
-                                                  Navigator.pushNamed(
-                                                      context, "/ProfilesInfoForm",
+                                                  Navigator.pushNamed(context,
+                                                      "/ProfilesInfoForm",
                                                       arguments: {
                                                         'userId': '',
                                                         'name': itemMessages[i]
@@ -256,7 +258,7 @@ class _MessagesState extends State<Messages> {
                                       ),
                                     ],
                                   ),
-                                ))),
+                                )))),
                             shrinkWrap: true,
                             itemCount: itemMessages.length,
                           ),

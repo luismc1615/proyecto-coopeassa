@@ -1,13 +1,10 @@
-import 'dart:io';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_project/src/models/connection_mongodb.dart';
 import 'package:mobile_project/src/models/imagesPlacesDTO.dart';
 import 'package:mobile_project/src/pages/menu/client_menu.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GalleryPlace extends StatefulWidget {
@@ -71,10 +68,6 @@ class _GalleryPlaceState extends State<GalleryPlace> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text('Nota: Doble toque para eliminar imágenes',
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w700),
-                    textAlign: TextAlign.center),
                 Column(
                   children: <Widget>[
                     const SizedBox(

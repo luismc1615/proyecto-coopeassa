@@ -61,24 +61,25 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                         itemBuilder: ((c, i) => Card(
                             color: const Color.fromARGB(255, 83, 161, 146),
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
+                                borderRadius: BorderRadius.circular(3)),
                             margin: const EdgeInsets.all(15),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
+                              child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                          color:  Color.fromARGB(255, 0, 0, 0), width: 3),
+                                    ),
+                                  ),
                               child: Column(
                                 children: <Widget>[
                                   const SizedBox(height: 8),
                                   Container(
                                     padding: const EdgeInsets.all(5),
                                     child: Text(itemsReservations[i].place!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
-                                          foreground: Paint()
-                                            ..style = PaintingStyle.stroke
-                                            ..strokeWidth = 2
-                                            ..color = const Color.fromARGB(
-                                                255, 0, 0, 0),
                                         )),
                                   ),
                                   Container(
@@ -237,7 +238,7 @@ class _ReservationsInfoState extends State<ReservationsInfo> {
                                   ),
                                 ],
                               ),
-                            ))),
+                            )))),
                         shrinkWrap: true,
                         itemCount: itemsReservations.length,
                       ),

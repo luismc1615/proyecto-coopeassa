@@ -65,8 +65,11 @@ class _UsersInfoState extends State<UsersInfo> {
                                 const NeverScrollableScrollPhysics(), //Evitará a que trate de Scrolear
                             scrollDirection: Axis.vertical,
                             itemBuilder: ((c, i) => Card(
-                                color: const Color.fromARGB(255, 83, 161, 146),
-                                shape: RoundedRectangleBorder(
+                                color: const Color.fromARGB(255, 236, 236, 236),
+                                shape: BeveledRectangleBorder(
+                                  side: const BorderSide(
+                                      color: Color.fromARGB(255, 56, 56, 56),
+                                    ),
                                     borderRadius: BorderRadius.circular(30)),
                                 margin: const EdgeInsets.all(15),
                                 child: ClipRRect(
@@ -77,14 +80,9 @@ class _UsersInfoState extends State<UsersInfo> {
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(itemUsers[i].username!,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
-                                              foreground: Paint()
-                                                ..style = PaintingStyle.stroke
-                                                ..strokeWidth = 2
-                                                ..color = const Color.fromARGB(
-                                                    255, 0, 0, 0),
                                             )),
                                       ),
                                       Container(
@@ -92,21 +90,21 @@ class _UsersInfoState extends State<UsersInfo> {
                                         child: Text(
                                             "📩  " + itemUsers[i].email!,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(255, 0, 0, 0),
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text("📞" + itemUsers[i].phone!,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(255, 0, 0, 0),
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(5),
                                         child: Text("📍 " + itemUsers[i].name!,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: Color.fromARGB(255, 0, 0, 0),
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       const SizedBox(height: 5),

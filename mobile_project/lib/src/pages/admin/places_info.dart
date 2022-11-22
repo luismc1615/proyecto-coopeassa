@@ -81,11 +81,6 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                               backgroundImage: NetworkImage(
                                                   itemsPlaces[i].profile_img!),
                                             )
-                                          /* Image.network(
-                                              itemsPlaces[i].profile_img!,
-                                              fit: BoxFit
-                                                  .scaleDown, // Fixes border issues
-                                            ) */
                                           : const Center(),
                                       Container(
                                         padding: const EdgeInsets.all(5),
