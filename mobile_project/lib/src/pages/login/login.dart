@@ -49,35 +49,12 @@ class _LoginScreenState extends State<LoginScreen>
           exit(0);
         },
         child: Scaffold(
-          backgroundColor: /* DateTime.now().hour > 18 || DateTime.now().hour < 6
-              ? const Color.fromARGB(255, 17, 17, 17)
-              : */
-              Color.fromARGB(255, 255, 253, 253),
-          appBar: AppBar(centerTitle: true, title: const Text("Inicio para administradores")),
+          backgroundColor: const Color.fromARGB(255, 255, 253, 253),
+          appBar: AppBar(
+              centerTitle: true,
+              title: const Text("Inicio para administradores")),
           body: Stack(
             children: [
-              // Lets add some decorations
-              Positioned(
-                  top: 100,
-                  right: -50,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: kPrimaryColor),
-                  )),
-
-              Positioned(
-                  top: -50,
-                  left: -50,
-                  child: Container(
-                    width: 200,
-                    height: 200,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: kPrimaryColor),
-                  )),
               // Login Form
               LoginForm(
                   isLogin: isLogin,

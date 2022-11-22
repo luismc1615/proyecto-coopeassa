@@ -43,16 +43,14 @@ class _LoginFormState extends State<LoginForm> {
       child: Align(
         alignment: Alignment.center,
         child: SizedBox(
-          width: widget.size.width,
-          height: widget.defaultLoginSize,
+          width: 400,
+          height: 800,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 40),
-                Image.asset('assets/images/logo-coopeassa-rl.png'),
-                const SizedBox(height: 40),
+                Image.asset('assets/images/logo-coopeassa-rl.png', width: 320, height: 320,),
                 RoundedInput(
                     icon: Icons.account_circle,
                     hint: 'Nombre de usuario',
