@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_project/src/pages/client/contact_form.dart';
@@ -57,9 +59,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
-          return true;
+          exit(0);
         },
         child: Scaffold(
           backgroundColor: Colors.white,
